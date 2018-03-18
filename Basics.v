@@ -1224,14 +1224,27 @@ Theorem identity_fn_applied_twice :
   (forall (x : bool), f x = x) ->
   forall (b : bool), f (f b) = b.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  rewrite -> H.
+  rewrite -> H.
+  reflexivity.
+Qed.
 
 (** Now state and prove a theorem [negation_fn_applied_twice] similar
     to the previous one but where the second hypothesis says that the
     function [f] has the property that [f x = negb x].*)
 
-(* FILL IN HERE *)
-(** [] *)
+Theorem negation_fn_applied_twice :
+  forall (f : bool -> bool),
+  (forall (x : bool), f x = negb x) ->
+  forall (b : bool), f (f b) = b.
+Proof.
+  intros.
+  rewrite -> H.
+  rewrite -> H.
+  rewrite -> negb_involutive.
+  reflexivity.
+Qed.
 
 (** **** Exercise: 3 stars, optional (andb_eq_orb)  *)
 (** Prove the following theorem.  (Hint: This one can be a bit tricky,
@@ -1244,7 +1257,21 @@ Theorem andb_eq_orb :
   (andb b c = orb b c) ->
   b = c.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros b c.
+  destruct b.
+  destruct c.
+  reflexivity.
+  simpl.
+  intros H.
+  rewrite H.
+  reflexivity.
+  simpl.
+  destruct c.
+  intros H2.
+  rewrite H2.
+  reflexivity.
+  reflexivity.
+Qed.
 
 (** [] *)
 
