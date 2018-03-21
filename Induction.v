@@ -157,13 +157,21 @@ Proof.
 Theorem mult_0_r : forall n:nat,
   n * 0 = 0.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n. induction n as [|n' IHn'].
+  simpl. reflexivity.
+  simpl. rewrite -> IHn'.
+  reflexivity.
+  Qed.
 (* GRADE_THEOREM 0.5: mult_0_r *)
 
 Theorem plus_n_Sm : forall n m : nat,
   S (n + m) = n + (S m).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n m. induction n, m as [n IHn | m IHm].
+  simpl. reflexivity.
+  simpl. reflexivity.
+  simpl.
+   (* FILL IN HERE *) Admitted.
 (* GRADE_THEOREM 0.5: plus_n_Sm *)
 
 
