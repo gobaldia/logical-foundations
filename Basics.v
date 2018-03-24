@@ -1317,7 +1317,43 @@ Qed.
         then converting it to unary should yield the same result as
         first converting it to unary and then incrementing. *)
 
-(* FILL IN HERE *)
+(** a *)
+Inductive bin : Type :=
+  | Z : bin
+  | D : bin -> bin
+  | D' : bin -> bin.
+
+(** b *)
+Fixpoint incr (n : bin) : bin :=
+  match n with
+    | Z => D' Z
+    | D n => D' n
+    | D' n => D (incr n)
+  end.
+
+Fixpoint bin_to_nat (n : bin) : nat :=
+  match n with
+    | Z => O
+    | D n => (bin_to_nat n) * 2
+    | D' n => S ((bin_to_nat n) * 2)
+  end.
+
+(** c *)
+Example test_bin_incr1: bin_to_nat (incr Z) = 1.
+Proof. reflexivity. Qed.
+
+Example test_bin_incr2: (minustwo (bin_to_nat Z)) = 0.
+Proof. reflexivity. Qed.
+
+Example test_bin_incr3: evenb (bin_to_nat (D Z)) = true.
+Proof. reflexivity. Qed.
+
+Example test_bin_incr4: evenb (bin_to_nat (D' Z)) = false.
+Proof. reflexivity. Qed.
+
+Example test_bin_incr5 : plus (bin_to_nat (D(D' Z))) (bin_to_nat (D' Z)) = 3.
+Proof. reflexivity. Qed.
+
 (** [] *)
 
 (** $Date: 2018-01-10 21:47:50 -0500 (Wed, 10 Jan 2018) $ *)
