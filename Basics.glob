@@ -1,4 +1,4 @@
-DIGEST 5841360dece30ad1263647a402441150
+DIGEST fb0b91a243d2954d0b1373ba73c7327d
 FBasics
 ind 3257:3259 <> day
 constr 3275:3280 <> monday
@@ -683,3 +683,78 @@ R47476:47476 Basics <> b var
 R47482:47484 Basics <> orb def
 R47488:47488 Basics <> c var
 R47486:47486 Basics <> b var
+ind 49743:49745 <> bin
+constr 49761:49761 <> Z
+constr 49773:49773 <> D
+constr 49792:49793 <> D'
+R49765:49767 Basics <> bin ind
+R49784:49786 Basics <> bin ind
+R49777:49779 Basics <> bin ind
+R49804:49806 Basics <> bin ind
+R49797:49799 Basics <> bin ind
+def 49828:49831 <> incr
+R49838:49840 Basics <> bin ind
+R49845:49847 Basics <> bin ind
+R49860:49860 Basics <> n var
+R49873:49873 Basics <> Z constr
+R49878:49879 Basics <> D' constr
+R49881:49881 Basics <> Z constr
+R49889:49889 Basics <> D constr
+R49896:49897 Basics <> D' constr
+R49899:49899 Basics <> n var
+R49907:49908 Basics <> D' constr
+R49915:49915 Basics <> D constr
+R49918:49921 Basics <> incr def
+R49923:49923 Basics <> n var
+def 49943:49952 <> bin_to_nat
+R49959:49961 Basics <> bin ind
+R49966:49968 Coq.Init.Datatypes <> nat ind
+R49981:49981 Basics <> n var
+R49994:49994 Basics <> Z constr
+R49999:49999 Coq.Init.Datatypes <> O constr
+R50007:50007 Basics <> D constr
+R50014:50014 Basics <> :nat_scope:x_'*'_x not
+R50027:50030 Basics <> :nat_scope:x_'*'_x not
+R50015:50024 Basics <> bin_to_nat def
+R50026:50026 Basics <> n var
+R50039:50040 Basics <> D' constr
+R50047:50047 Coq.Init.Datatypes <> S constr
+R50050:50050 Basics <> :nat_scope:x_'*'_x not
+R50063:50066 Basics <> :nat_scope:x_'*'_x not
+R50051:50060 Basics <> bin_to_nat def
+R50062:50062 Basics <> n var
+def 50095:50108 <> test_bin_incr1
+R50130:50132 Coq.Init.Logic <> :type_scope:x_'='_x not
+R50111:50120 Basics <> bin_to_nat def
+R50123:50126 Basics <> incr def
+R50128:50128 Basics <> Z constr
+def 50170:50183 <> test_bin_incr2
+R50186:50186 Coq.Init.Logic <> :type_scope:x_'='_x not
+R50210:50213 Coq.Init.Logic <> :type_scope:x_'='_x not
+R50187:50194 Basics <> minustwo def
+R50197:50206 Basics <> bin_to_nat def
+R50208:50208 Basics <> Z constr
+def 50251:50264 <> test_bin_incr3
+R50291:50293 Coq.Init.Logic <> :type_scope:x_'='_x not
+R50267:50271 Basics <> evenb def
+R50274:50283 Basics <> bin_to_nat def
+R50286:50286 Basics <> D constr
+R50288:50288 Basics <> Z constr
+R50294:50297 Basics <> true constr
+def 50334:50347 <> test_bin_incr4
+R50375:50377 Coq.Init.Logic <> :type_scope:x_'='_x not
+R50350:50354 Basics <> evenb def
+R50357:50366 Basics <> bin_to_nat def
+R50369:50370 Basics <> D' constr
+R50372:50372 Basics <> Z constr
+R50378:50382 Basics <> false constr
+def 50419:50432 <> test_bin_incr5
+R50483:50485 Coq.Init.Logic <> :type_scope:x_'='_x not
+R50436:50439 Coq.Init.Peano <> plus def
+R50465:50474 Basics <> bin_to_nat def
+R50477:50478 Basics <> D' constr
+R50480:50480 Basics <> Z constr
+R50442:50451 Basics <> bin_to_nat def
+R50454:50454 Basics <> D constr
+R50456:50457 Basics <> D' constr
+R50459:50459 Basics <> Z constr

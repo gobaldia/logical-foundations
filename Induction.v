@@ -167,17 +167,28 @@ Proof.
 Theorem plus_n_Sm : forall n m : nat,
   S (n + m) = n + (S m).
 Proof.
-  intros n m. induction n, m as [n IHn | m IHm].
-  simpl. reflexivity.
-  simpl. reflexivity.
+  intros n m.
+  induction n.
+  reflexivity.
   simpl.
-   (* FILL IN HERE *) Admitted.
+  rewrite -> IHn.
+  reflexivity.
+Qed.
 (* GRADE_THEOREM 0.5: plus_n_Sm *)
 
 
 Theorem plus_comm : forall n m : nat,
   n + m = m + n.
 Proof.
+  intros n m.
+  induction m.
+  rewrite -> plus_n_O.
+  reflexivity.
+  rewrite <- plus_n_Sm.
+  simpl.
+  rewrite -> IHm.
+  reflexivity.
+Qed.
   (* FILL IN HERE *) Admitted.
 (* GRADE_THEOREM 0.5: plus_comm *)
 
