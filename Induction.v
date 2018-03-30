@@ -161,7 +161,7 @@ Proof.
   simpl. reflexivity.
   simpl. rewrite -> IHn'.
   reflexivity.
-  Qed.
+Qed.
 (* GRADE_THEOREM 0.5: mult_0_r *)
 
 Theorem plus_n_Sm : forall n m : nat,
@@ -189,13 +189,19 @@ Proof.
   rewrite -> IHm.
   reflexivity.
 Qed.
-  (* FILL IN HERE *) Admitted.
 (* GRADE_THEOREM 0.5: plus_comm *)
 
 Theorem plus_assoc : forall n m p : nat,
   n + (m + p) = (n + m) + p.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n m p.
+  induction n.
+  rewrite -> plus_O_n.
+  reflexivity.
+  simpl.
+  rewrite -> IHn.
+  reflexivity.
+Qed.
 (* GRADE_THEOREM 0.5: plus_assoc *)
 (** [] *)
 
@@ -212,7 +218,14 @@ Fixpoint double (n:nat) :=
 
 Lemma double_plus : forall n, double n = n + n .
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intro n.
+  induction n.
+  reflexivity.
+  simpl.
+  rewrite -> IHn.
+  rewrite <- plus_n_Sm.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, optional (evenb_S)  *)
@@ -226,14 +239,23 @@ Proof.
 Theorem evenb_S : forall n : nat,
   evenb (S n) = negb (evenb n).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intro n.
+  induction n.
+  reflexivity.
+  rewrite -> IHn.
+  simpl.
+  rewrite -> negb_involutive.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 1 star (destruct_induction)  *)
 (** Briefly explain the difference between the tactics [destruct]
     and [induction].
 
-(* FILL IN HERE *)
+Ambos generan casos, con la diferencia de que induction genera también
+una o más hipótesis inductivas.
+
 *)
 (** [] *)
 
@@ -457,17 +479,47 @@ Proof.
 Theorem plus_swap : forall n m p : nat,
   n + (m + p) = m + (n + p).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n m p.
+  rewrite -> plus_assoc'.
+  rewrite -> plus_assoc'.
+  assert (H: n + m = m + n). { rewrite -> plus_comm. reflexivity. }
+  rewrite -> H.
+  reflexivity.
+Qed.
+  
 
 (** Now prove commutativity of multiplication.  (You will probably
     need to define and prove a separate subsidiary theorem to be used
     in the proof of this one.  You may find that [plus_swap] comes in
     handy.) *)
 
+(**
+Lemma mult_n_O : forall n : nat,
+  n * 0 = 0.
+Proof.
+  intro n.
+  simpl. reflexivity.
+*)
+
+Theorem mult_r_0 : forall n:nat,
+  0 * n = 0.
+Proof.
+  intros n. induction n as [|n' IHn'].
+  simpl. reflexivity.
+  simpl.
+  reflexivity.
+Qed.
+
 Theorem mult_comm : forall m n : nat,
   m * n = n * m.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros m n.
+  induction n.
+  rewrite -> mult_0_r.
+  rewrite -> mult_r_0.
+  reflexivity.
+  simpl. simpl.
+Admitted.
 (** [] *)
 
 (** **** Exercise: 3 stars, optional (more_exercises)  *)
