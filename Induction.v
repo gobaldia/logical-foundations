@@ -493,14 +493,6 @@ Qed.
     in the proof of this one.  You may find that [plus_swap] comes in
     handy.) *)
 
-(**
-Lemma mult_n_O : forall n : nat,
-  n * 0 = 0.
-Proof.
-  intro n.
-  simpl. reflexivity.
-*)
-
 Theorem mult_r_0 : forall n:nat,
   0 * n = 0.
 Proof.
@@ -510,6 +502,16 @@ Proof.
   reflexivity.
 Qed.
 
+Lemma mult_left_distr : forall m n p : nat,
+  m * (p + n) = m * p + m * n.
+Proof.
+Admitted.
+
+Lemma mult_right_distr : forall m n p : nat,
+  (p + n) * m = m * p + m * n.
+Proof.
+Admitted.
+
 Theorem mult_comm : forall m n : nat,
   m * n = n * m.
 Proof.
@@ -518,8 +520,11 @@ Proof.
   rewrite -> mult_0_r.
   rewrite -> mult_r_0.
   reflexivity.
-  simpl. simpl.
-Admitted.
+  rewrite <- plus_1_l.
+  rewrite -> mult_left_distr.
+  rewrite -> mult_right_distr.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, optional (more_exercises)  *)
@@ -704,8 +709,44 @@ Qed.
     definitions to make the property easier to prove, feel free to
     do so! *)
 
-(* FILL IN HERE *)
-(** [] *)
+Fixpoint incr (n : bin) : bin :=
+  match n with
+    | Z => D' Z
+    | D n => D' n
+    | D' n => D (incr n)
+  end.
+
+Fixpoint bin_to_nat (n : bin) : nat :=
+  match n with
+    | Z => O
+    | D n => (bin_to_nat n) * 2
+    | D' n => S ((bin_to_nat n) * 2)
+  end.
+
+(**Theorem bin_to_nat_pres_incr : forall n : bin,
+  bin_to_nat (incr n) = (bin_to_nat n) + 1.
+Proof.
+  intro n.
+  simpl.
+  destruct n.
+  reflexivity.
+  simpl.
+  rewrite <- plus_1_l.
+  rewrite -> plus_comm.
+  reflexivity.
+  simpl.*)
+
+Theorem bin_to_nat_pres_incr : forall n : bin,
+  bin_to_nat (incr n) = 1 + (bin_to_nat n).
+Proof.
+  intros n.
+  induction n as [|n'|n''].
+  reflexivity.
+  reflexivity.
+  simpl.
+  rewrite -> IHn''.
+  reflexivity.
+Qed.
 
 (** **** Exercise: 5 stars, advanced (binary_inverse)  *)
 (** This exercise is a continuation of the previous exercise about
