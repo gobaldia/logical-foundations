@@ -505,6 +505,11 @@ Qed.
 Lemma mult_left_distr : forall m n p : nat,
   m * (p + n) = m * p + m * n.
 Proof.
+  intros.
+  induction m. reflexivity.
+  rewrite <- plus_1_l. simpl. rewrite -> IHm. rewrite -> plus_assoc.
+  rewrite -> plus_assoc.
+  
 Admitted.
 
 Lemma mult_right_distr : forall m n p : nat,
@@ -525,6 +530,7 @@ Proof.
   rewrite -> mult_right_distr.
   reflexivity.
 Qed.
+
 (** [] *)
 
 (** **** Exercise: 3 stars, optional (more_exercises)  *)
@@ -722,19 +728,6 @@ Fixpoint bin_to_nat (n : bin) : nat :=
     | D n => (bin_to_nat n) * 2
     | D' n => S ((bin_to_nat n) * 2)
   end.
-
-(**Theorem bin_to_nat_pres_incr : forall n : bin,
-  bin_to_nat (incr n) = (bin_to_nat n) + 1.
-Proof.
-  intro n.
-  simpl.
-  destruct n.
-  reflexivity.
-  simpl.
-  rewrite <- plus_1_l.
-  rewrite -> plus_comm.
-  reflexivity.
-  simpl.*)
 
 Theorem bin_to_nat_pres_incr : forall n : bin,
   bin_to_nat (incr n) = 1 + (bin_to_nat n).
