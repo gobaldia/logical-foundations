@@ -752,6 +752,9 @@ Qed.
         converting to binary, then converting back yields the same
         natural number you started with.
 
+        0 -> Z
+        S n -> incr (nat_to_bin n)
+
     (b) You might naturally think that we should also prove the
         opposite direction: that starting with a binary number,
         converting to a natural, and then back to binary yields the
