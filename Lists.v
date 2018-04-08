@@ -500,6 +500,11 @@ Proof.
 Qed.
 *)
 
+Theorem bag_theorem : forall (n : nat) (b : bag), leb 0 (count n (add n b)) = true.
+Proof.
+  reflexivity.
+Qed.
+
 (** [] *)
 
 (* ################################################################# *)
@@ -802,7 +807,7 @@ Proof.
     involving [foo].  For example, try uncommenting the following line
     to see a list of theorems that we have proved about [rev]: *)
 
-(*  Search rev. *)
+Search rev.
 
 (** Keep [Search] in mind as you do the following exercises and
     throughout the rest of the book; it can save you a lot of time!
@@ -820,19 +825,38 @@ Proof.
 Theorem app_nil_r : forall l : natlist,
   l ++ [] = l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intro l.
+  induction l.
+  reflexivity.
+  simpl.
+  rewrite -> IHl.
+  reflexivity.
+Qed.
 (* GRADE_THEOREM 0.5: NatList.app_nil_r *)
 
 Theorem rev_app_distr: forall l1 l2 : natlist,
   rev (l1 ++ l2) = rev l2 ++ rev l1.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l1 l2.
+  induction l1.
+  simpl. rewrite -> app_nil_r. reflexivity.
+  simpl. rewrite -> IHl1.
+  rewrite -> app_assoc.
+  reflexivity.
+Qed.
 (* GRADE_THEOREM 0.5: NatList.rev_app_distr *)
 
 Theorem rev_involutive : forall l : natlist,
   rev (rev l) = l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l.
+  induction l.
+  reflexivity.
+  simpl.
+  rewrite -> rev_app_distr.
+  rewrite -> IHl.
+  reflexivity.
+Qed.
 (* GRADE_THEOREM 0.5: NatList.rev_involutive *)
 
 (** There is a short solution to the next one.  If you find yourself
@@ -842,7 +866,11 @@ Proof.
 Theorem app_assoc4 : forall l1 l2 l3 l4 : natlist,
   l1 ++ (l2 ++ (l3 ++ l4)) = ((l1 ++ l2) ++ l3) ++ l4.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  rewrite -> app_assoc.
+  rewrite -> app_assoc.
+  reflexivity.
+Qed.
 (* GRADE_THEOREM 0.5: NatList.app_assoc4 *)
 
 (** An exercise about your implementation of [nonzeros]: *)
@@ -850,7 +878,15 @@ Proof.
 Lemma nonzeros_app : forall l1 l2 : natlist,
   nonzeros (l1 ++ l2) = (nonzeros l1) ++ (nonzeros l2).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l1 l2.
+  induction l1.
+  reflexivity.
+  simpl.
+  rewrite -> IHl1.
+  destruct n.
+  reflexivity.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars (beq_natlist)  *)
