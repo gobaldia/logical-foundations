@@ -894,25 +894,44 @@ Qed.
     lists of numbers for equality.  Prove that [beq_natlist l l]
     yields [true] for every list [l]. *)
 
-Fixpoint beq_natlist (l1 l2 : natlist) : bool
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+Fixpoint beq_natlist (l1 l2 : natlist) : bool :=
+  match l1 with
+  | [] => match l2 with
+    | [] => true
+    | _ => false
+    end
+  | x1 :: xs1 => match l2 with
+    | [] => false
+    | x2 :: xs2 => match (beq_nat x1 x2) with
+      | false => false
+      | true => beq_natlist xs1 xs2
+      end
+    end
+  end.
 
 Example test_beq_natlist1 :
   (beq_natlist nil nil = true).
- (* FILL IN HERE *) Admitted.
+ reflexivity. Qed.
 
 Example test_beq_natlist2 :
   beq_natlist [1;2;3] [1;2;3] = true.
-(* FILL IN HERE *) Admitted.
+reflexivity. Qed.
 
 Example test_beq_natlist3 :
   beq_natlist [1;2;3] [1;2;4] = false.
- (* FILL IN HERE *) Admitted.
+ reflexivity. Qed.
 
 Theorem beq_natlist_refl : forall l:natlist,
   true = beq_natlist l l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intro l.
+  induction l.
+  reflexivity.
+  simpl.
+  rewrite <- beq_nat_refl.
+  rewrite -> IHl.
+  reflexivity.
+Qed.
 (** [] *)
 
 (* ================================================================= *)
@@ -925,7 +944,9 @@ Proof.
 Theorem count_member_nonzero : forall (s : bag),
   leb 1 (count 1 (1 :: s)) = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intro s.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** The following lemma about [leb] might help you in the next exercise. *)
@@ -943,7 +964,18 @@ Proof.
 Theorem remove_decreases_count: forall (s : bag),
   leb (count 0 (remove_one 0 s)) (count 0 s) = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros s.
+  induction s.
+  reflexivity.
+  simpl.
+  induction n.
+  simpl.
+  rewrite -> ble_n_Sn.
+  reflexivity.
+  simpl.
+  rewrite -> IHs.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, optional (bag_count_sum)  *)
@@ -951,7 +983,10 @@ Proof.
     involving the functions [count] and [sum], and prove it using
     Coq.  (You may find that the difficulty of the proof depends on
     how you defined [count]!) *)
-(* FILL IN HERE *)
+Theorem bag_count_sum : forall (n : nat) (s t : bag), beq_nat 0 (count n s) = true ->
+  leb 0 (count n (sum t s)) = true.
+Proof.
+Admitted.
 (** [] *)
 
 (** **** Exercise: 4 stars, advanced (rev_injective)  *)
@@ -961,7 +996,14 @@ Proof.
 
 (There is a hard way and an easy way to do this.) *)
 
-(* FILL IN HERE *)
+Theorem rev_injective : forall (l1 l2 : natlist), rev l1 = rev l2 -> l1 = l2.
+Proof.
+  intros l1 l2 H.
+  rewrite <- rev_involutive.
+  rewrite <- H.
+  rewrite -> rev_involutive.
+  reflexivity.
+Qed.
 (** [] *)
 
 (* ################################################################# *)
