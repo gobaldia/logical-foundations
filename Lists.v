@@ -1235,7 +1235,7 @@ Inductive baz : Type :=
 
 (** La respuesta es 0. No hay forma de crear un elemento de tipo "baz".
 Para formar un "baz" si o si se necesita otro elemento de tipo "baz". *)
-
+ 
 (* FILL IN HERE *)
 *)
 (** [] *)
