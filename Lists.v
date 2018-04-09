@@ -1091,17 +1091,20 @@ Definition option_elim (d : nat) (o : natoption) : nat :=
 (** Using the same idea, fix the [hd] function from earlier so we don't
     have to pass a default element for the [nil] case.  *)
 
-Definition hd_error (l : natlist) : natoption
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+Definition hd_error (l : natlist) : natoption :=
+  match l with
+  | [] => None
+  | x :: xs => Some x
+  end.
 
 Example test_hd_error1 : hd_error [] = None.
- (* FILL IN HERE *) Admitted.
+ reflexivity. Qed.
 
 Example test_hd_error2 : hd_error [1] = Some 1.
- (* FILL IN HERE *) Admitted.
+ reflexivity. Qed.
 
 Example test_hd_error3 : hd_error [5;6] = Some 5.
- (* FILL IN HERE *) Admitted.
+ reflexivity. Qed.
 (** [] *)
 
 (** **** Exercise: 1 star, optional (option_elim_hd)  *)
@@ -1110,7 +1113,11 @@ Example test_hd_error3 : hd_error [5;6] = Some 5.
 Theorem option_elim_hd : forall (l:natlist) (default:nat),
   hd default l = option_elim default (hd_error l).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intro l.
+  induction l.
+  reflexivity.
+  reflexivity.
+Qed.
 (** [] *)
 
 End NatList.
@@ -1144,7 +1151,12 @@ Definition beq_id (x1 x2 : id) :=
 (** **** Exercise: 1 star (beq_id_refl)  *)
 Theorem beq_id_refl : forall x, true = beq_id x x.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intro x.
+  induction x.
+  simpl.
+  rewrite <- beq_nat_refl.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** Now we define the type of partial maps: *)
@@ -1191,7 +1203,14 @@ Theorem update_eq :
   forall (d : partial_map) (x : id) (v: nat),
     find x (update d x v) = Some v.
 Proof.
- (* FILL IN HERE *) Admitted.
+ intros.
+ induction d.
+ simpl. rewrite <- beq_id_refl.
+ reflexivity.
+ simpl.
+ rewrite <- beq_id_refl.
+ reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 1 star (update_neq)  *)
@@ -1199,7 +1218,11 @@ Theorem update_neq :
   forall (d : partial_map) (x y : id) (o: nat),
     beq_id x y = false -> find x (update d y o) = find x d.
 Proof.
- (* FILL IN HERE *) Admitted.
+ intros.
+ induction d.
+ simpl. rewrite -> H. reflexivity.
+ simpl. rewrite -> H. reflexivity.
+Qed.
 (** [] *)
 End PartialMap.
 
@@ -1210,8 +1233,8 @@ Inductive baz : Type :=
   | Baz1 : baz -> baz
   | Baz2 : baz -> bool -> baz.
 
-(** How _many_ elements does the type [baz] have?
-    (Explain your answer in words, preferrably English.)
+(** La respuesta es 0. No hay forma de crear un elemento de tipo "baz".
+Para formar un "baz" si o si se necesita otro elemento de tipo "baz". *)
 
 (* FILL IN HERE *)
 *)
