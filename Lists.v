@@ -1237,7 +1237,6 @@ Inductive baz : Type :=
 Para formar un "baz" si o si se necesita otro elemento de tipo "baz". *)
  
 (* FILL IN HERE *)
-*)
 (** [] *)
 
 (** $Date: 2017-11-16 01:44:48 -0500 (Thu, 16 Nov 2017) $ *)
