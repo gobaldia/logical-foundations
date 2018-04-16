@@ -830,13 +830,16 @@ Qed.
 *)
 
 Fixpoint flat_map {X Y:Type} (f:X -> list Y) (l:list X)
-                   : (list Y)
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+                   : (list Y) :=
+  match l with
+  | [] => []
+  | x :: xs => (f x) ++ (flat_map f xs)
+  end.
 
 Example test_flat_map1:
   flat_map (fun n => [n;n;n]) [1;5;4]
   = [1; 1; 1; 5; 5; 5; 4; 4; 4].
- (* FILL IN HERE *) Admitted.
+ reflexivity. Qed.
 (** [] *)
 
 (** Lists are not the only inductive type that we can write a
