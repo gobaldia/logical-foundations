@@ -1181,8 +1181,8 @@ Proof. reflexivity. Qed.
     a "Universe inconsistency" error, try iterating over a different
     type: [nat] itself is usually problematic.) *)
 
-Definition exp (n m : nat) : nat :=
-  fun (X : Type) (f : X -> X) (x : X) => . Admitted.
+Definition exp (n m : nat) : nat (**:=
+  fun (X : Type) (f : X -> X) (x : X) => *). Admitted.
 
 (** Sé que tengo que multiplicar m veces a n (n * n * ... * n), pero no me
 doy cuenta de cómo expresarlo en Coq. *)

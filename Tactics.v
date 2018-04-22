@@ -12,7 +12,7 @@
       strengthening is required); and
     - more details on how to reason by case analysis. *)
 
-Set Warnings "-notation-overridden,-parsing".
+(** Set Warnings "-notation-overridden,-parsing". *)
 Require Export Poly.
 
 (* ################################################################# *)
@@ -73,7 +73,9 @@ Theorem silly_ex :
      evenb 3 = true ->
      oddb 4 = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n eq1.
+  apply eq1.
+Qed.
 (** [] *)
 
 (** To use the [apply] tactic, the (conclusion of the) fact
@@ -105,7 +107,11 @@ Theorem rev_exercise1 : forall (l l' : list nat),
      l = rev l' ->
      l' = rev l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  rewrite -> H.
+  symmetry.
+  apply rev_involutive.
+Qed.
 (** [] *)
 
 (** **** Exercise: 1 star, optional (apply_rewrite)  *)
@@ -113,7 +119,8 @@ Proof.
     [rewrite].  What are the situations where both can usefully be
     applied?
 
-(* FILL IN HERE *)
+(* Ambas se utilizan cuando el goal a probar es igual a una hipótesis o a algo
+ya probado, con la diferencia de que apply nos ahorra un reflexivity.  *)
 *)
 (** [] *)
 
@@ -173,7 +180,10 @@ Example trans_eq_exercise : forall (n m o p : nat),
      (n + p) = m ->
      (n + p) = (minustwo o).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  rewrite <- H.
+  apply H0.
+Qed.
 (** [] *)
 
 (* ################################################################# *)
@@ -250,7 +260,10 @@ Example inversion_ex3 : forall (X : Type) (x y z : X) (l j : list X),
   y :: l = x :: j ->
   x = y.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  inversion H0.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** When used on a hypothesis involving an equality between
