@@ -327,7 +327,9 @@ Example inversion_ex6 : forall (X : Type)
   y :: l = z :: j ->
   x = z.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  inversion H.
+Qed.
 (** [] *)
 
 (** To summarize this discussion, suppose [H] is a hypothesis in the
@@ -417,8 +419,15 @@ Theorem plus_n_n_injective : forall n m,
      n + n = m + m ->
      n = m.
 Proof.
-  intros n. induction n as [| n'].
-  (* FILL IN HERE *) Admitted.
+  intros n. induction n.
+  intros m H. destruct m. reflexivity. inversion H.
+  intros m. destruct m. intros. inversion H.
+  intros eq. inversion eq.
+  rewrite <- plus_n_Sm in H0. rewrite <- plus_n_Sm in H0.
+  inversion H0. apply IHn in H1. rewrite -> H1. reflexivity.
+Qed.
+  
+
 (** [] *)
 
 (* ################################################################# *)
@@ -574,7 +583,17 @@ Proof.
 Theorem beq_nat_true : forall n m,
     beq_nat n m = true -> n = m.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n.
+  induction n.
+  destruct m. reflexivity.
+  intros H. inversion H.
+  destruct m.
+  intros H. inversion H.
+  intros H.
+  apply f_equal. apply IHn.
+  inversion H.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, advanced (beq_nat_true_informal)  *)
@@ -699,7 +718,17 @@ Theorem nth_error_after_last: forall (n : nat) (X : Type) (l : list X),
      length l = n ->
      nth_error l n = None.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  induction l.
+  reflexivity.
+  inversion H.
+  simpl.
+  induction l.
+  reflexivity.
+  apply IHl0.
+  simpl.
+Admitted.
+
 (** [] *)
 
 (* ################################################################# *)
