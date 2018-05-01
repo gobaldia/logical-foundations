@@ -1,6 +1,6 @@
 (** * Logic: Logic in Coq *)
 
-Set Warnings "-notation-overridden,-parsing".
+(** Set Warnings "-notation-overridden,-parsing". *)
 Require Export Tactics.
 
 (** In previous chapters, we have seen many examples of factual
@@ -466,14 +466,21 @@ Proof.
 Theorem contrapositive : forall (P Q : Prop),
   (P -> Q) -> (~Q -> ~P).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P Q H1 H2 H3.
+  apply H2.
+  apply H1.
+  apply H3.
+Qed.
 (** [] *)
 
 (** **** Exercise: 1 star (not_both_true_and_false)  *)
 Theorem not_both_true_and_false : forall P : Prop,
   ~ (P /\ ~P).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P H.
+  apply H.
+  apply H.
+Qed.
 (** [] *)
 
 (** **** Exercise: 1 star, advanced (informal_not_PNP)  *)
@@ -580,19 +587,51 @@ Qed.
 Theorem iff_refl : forall P : Prop,
   P <-> P.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  split.
+  intros.
+  apply H.
+  intros.
+  apply H.
+Qed.
 
 Theorem iff_trans : forall P Q R : Prop,
   (P <-> Q) -> (Q <-> R) -> (P <-> R).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  inversion H as [H1 H2].
+  inversion H0 as [H3 H4].
+  split.
+  intros.
+  apply H3. apply H1. apply H5.
+  intros. apply H2. apply H4. apply H5.
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars (or_distributes_over_and)  *)
 Theorem or_distributes_over_and : forall P Q R : Prop,
   P \/ (Q /\ R) <-> (P \/ Q) /\ (P \/ R).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  split.
+  intros.
+  inversion H.
+  split.
+  left. apply H0.
+  left. apply H0.
+  split.
+  right. apply H0.
+  right. apply H0.
+  intros.
+  inversion H.
+  inversion H1.
+  left. apply H2.
+  right.
+  apply and_comm.
+  apply conj.
+  apply H2.
+  (** Ver con Nora por que no puedo hacer apply H0*)
+Admitted.
 (** [] *)
 
 (** Some of Coq's tactics treat [iff] statements specially, avoiding
