@@ -670,6 +670,7 @@ Qed.
     give smooth proofs of statements involving equivalences.  Here is
     a ternary version of the previous [mult_0] result: *)
 
+(** Ver con Nora. El codigo original no anda
 Lemma mult_0_3 :
   forall n m p, n * m * p = 0 <-> n = 0 \/ m = 0 \/ p = 0.
 Proof.
@@ -677,6 +678,7 @@ Proof.
   rewrite mult_0. rewrite mult_0. rewrite or_assoc.
   reflexivity.
 Qed.
+*)
 
 (** The [apply] tactic can also be used with [<->]. When given an
     equivalence as its argument, [apply] tries to guess which side of
@@ -731,7 +733,13 @@ Proof.
 Theorem dist_not_exists : forall (X:Type) (P : X -> Prop),
   (forall x, P x) -> ~ (exists x, ~ P x).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X P H.
+  unfold not.
+  intro.
+  inversion H0.
+  apply H1.
+  apply H.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars (dist_exists_or)  *)
@@ -741,7 +749,20 @@ Proof.
 Theorem dist_exists_or : forall (X:Type) (P Q : X -> Prop),
   (exists x, P x \/ Q x) <-> (exists x, P x) \/ (exists x, Q x).
 Proof.
-   (* FILL IN HERE *) Admitted.
+   intros.
+   split.
+   intros.
+   inversion H as [x H1].
+   inversion H1 as [H2 | H3].
+   left. exists x. apply H2.
+   right. exists x. apply H3.
+   intros.
+   inversion H as [H1 | H2].
+   inversion H1 as [x  H3].
+   exists x. left. apply H3.
+   inversion H2 as [x H3].
+   exists x. right. apply H3.
+Qed.
 (** [] *)
 
 (* ################################################################# *)
