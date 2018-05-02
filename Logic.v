@@ -630,7 +630,7 @@ Proof.
   apply and_comm.
   apply conj.
   apply H2.
-  (** Ver con Nora por que no puedo hacer apply H0*)
+  (** Ver con Nora *)
 Admitted.
 (** [] *)
 
@@ -670,7 +670,6 @@ Qed.
     give smooth proofs of statements involving equivalences.  Here is
     a ternary version of the previous [mult_0] result: *)
 
-(** Ver con Nora. El codigo original no anda
 Lemma mult_0_3 :
   forall n m p, n * m * p = 0 <-> n = 0 \/ m = 0 \/ p = 0.
 Proof.
@@ -678,7 +677,6 @@ Proof.
   rewrite mult_0. rewrite mult_0. rewrite or_assoc.
   reflexivity.
 Qed.
-*)
 
 (** The [apply] tactic can also be used with [<->]. When given an
     equivalence as its argument, [apply] tries to guess which side of
@@ -784,8 +782,8 @@ Qed.
 
 Fixpoint In {A : Type} (x : A) (l : list A) : Prop :=
   match l with
-  | nil => False
-  | cons h t => h = x \/ In x t
+  | [] => False
+  | x' :: l' => x' = x \/ In x l'
   end.
 
 (** When [In] is applied to a concrete list, it expands into a
@@ -844,14 +842,29 @@ Lemma In_map_iff :
     In y (map f l) <->
     exists x, f x = y /\ In x l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  split.
+  intros.
+  induction l.
+  + intros. inversion H.
+  + exists x. simpl. simpl in H.
+  destruct H.
+  split. apply H.
+  left. reflexivity.
+  split.
+Admitted.
 (** [] *)
 
 (** **** Exercise: 2 stars (In_app_iff)  *)
 Lemma In_app_iff : forall A l l' (a:A),
   In a (l++l') <-> In a l \/ In a l'.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  split.
+  intros.
+  induction l.
+  simpl. simpl in H. right. apply H.
+  simpl. simpl in H.
+Admitted.
 (** [] *)
 
 (** **** Exercise: 3 stars, recommended (All)  *)
@@ -865,15 +878,31 @@ Proof.
     lemma below.  (Of course, your definition should _not_ just
     restate the left-hand side of [All_In].) *)
 
-Fixpoint All {T : Type} (P : T -> Prop) (l : list T) : Prop
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+Fixpoint All {T : Type} (P : T -> Prop) (l : list T) : Prop :=
+  match l with
+  | [] => True
+  | x :: xs => P x /\ All P xs
+  end.
 
+(** Revisar!!! *)
 Lemma All_In :
   forall T (P : T -> Prop) (l : list T),
     (forall x, In x l -> P x) <->
     All P l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+intros. split.
+- induction l.
+  * intros. simpl. apply I.
+  * intros. simpl. split.
+    + apply H. left. reflexivity.
+    + apply IHl. intros. apply H. right. assumption.
+- intros. induction l.
+  * inversion H0.
+  * destruct H0.
+    + destruct H. rewrite <- H0. assumption.
+    + apply IHl. destruct H. assumption. assumption.
+Qed.
+
 (** [] *)
 
 (** **** Exercise: 3 stars (combine_odd_even)  *)
