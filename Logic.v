@@ -784,8 +784,8 @@ Qed.
 
 Fixpoint In {A : Type} (x : A) (l : list A) : Prop :=
   match l with
-  | [] => False
-  | x' :: l' => x' = x \/ In x l'
+  | nil => False
+  | cons h t => h = x \/ In x t
   end.
 
 (** When [In] is applied to a concrete list, it expands into a
