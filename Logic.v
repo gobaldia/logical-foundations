@@ -912,8 +912,10 @@ Qed.
     equivalent to [Podd n] when [n] is odd and equivalent to [Peven n]
     otherwise. *)
 
-Definition combine_odd_even (Podd Peven : nat -> Prop) : nat -> Prop
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+Definition combine_odd_even (Podd Peven : nat -> Prop) : nat -> Prop :=
+  fun n => if oddb n
+    then Podd n
+    else Peven n.
 
 (** To test your definition, prove the following facts: *)
 
@@ -923,7 +925,12 @@ Theorem combine_odd_even_intro :
     (oddb n = false -> Peven n) ->
     combine_odd_even Podd Peven n.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  unfold combine_odd_even.
+  destruct (oddb n).
+  apply H. reflexivity.
+  apply H0. reflexivity.
+Qed.
 
 Theorem combine_odd_even_elim_odd :
   forall (Podd Peven : nat -> Prop) (n : nat),
@@ -931,7 +938,11 @@ Theorem combine_odd_even_elim_odd :
     oddb n = true ->
     Podd n.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  unfold combine_odd_even in H.
+  rewrite -> H0 in H.
+  apply H.
+Qed.
 
 Theorem combine_odd_even_elim_even :
   forall (Podd Peven : nat -> Prop) (n : nat),
@@ -939,7 +950,12 @@ Theorem combine_odd_even_elim_even :
     oddb n = false ->
     Peven n.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  unfold combine_odd_even in H.
+  rewrite -> H0 in H.
+  apply H.
+Qed.
+
 (** [] *)
 
 (* ################################################################# *)
@@ -1174,8 +1190,31 @@ Definition tr_rev {X} (l : list X) : list X :=
     call); a decent compiler will generate very efficient code in this
     case.  Prove that the two definitions are indeed equivalent. *)
 
+Lemma empty_neutro : forall (X : Type) (x : X),
+  [x] = [] ++ [x].
+Proof.
+  intros.
+  reflexivity.
+Qed.
+
+Lemma double_empty_neutro : forall (X : Type) (x : X),
+  [] ++ [] ++ [x] = ([] ++ [x]).
+Proof.
+  intros.
+  reflexivity.
+Qed.
+
 Lemma tr_rev_correct : forall X, @tr_rev X = @rev X.
-(* FILL IN HERE *) Admitted.
+  intros.
+apply functional_extensionality.
+  unfold tr_rev.
+  induction x.
+  reflexivity.
+  simpl. rewrite <- IHx.
+  rewrite -> empty_neutro.
+  symmetry.
+Admitted.
+
 (** [] *)
 
 (* ================================================================= *)
