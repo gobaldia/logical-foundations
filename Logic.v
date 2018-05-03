@@ -1406,7 +1406,12 @@ Qed.
 Lemma orb_true_iff : forall b1 b2,
   b1 || b2 = true <-> b1 = true \/ b2 = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  split. intros H. inversion H. destruct b1. simpl. left. reflexivity.
+  right. destruct b2. reflexivity. reflexivity.
+  intros H. inversion H. rewrite -> H0. reflexivity.
+  rewrite -> H0. destruct b1. reflexivity. reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 1 star (beq_nat_false_iff)  *)
@@ -1417,7 +1422,19 @@ Proof.
 Theorem beq_nat_false_iff : forall x y : nat,
   beq_nat x y = false <-> x <> y.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  split.
+  intros H. unfold not. intros H1. rewrite H1 in H.
+  assert (beq_nat y y = true). apply beq_nat_true_iff. reflexivity.
+  rewrite H0 in H. inversion H.
+  intros. induction x. destruct y. simpl. exfalso. apply H. reflexivity.
+  destruct y. reflexivity. reflexivity.
+  unfold not in H. destruct x. destruct y. reflexivity.
+  destruct y. exfalso. apply H. reflexivity. reflexivity.
+  destruct x. destruct y. reflexivity. destruct y. reflexivity.
+  destruct y. exfalso. apply H. reflexivity.
+  destruct y. reflexivity.
+Admitted.
 (** [] *)
 
 (** **** Exercise: 3 stars (beq_list)  *)
@@ -1428,15 +1445,36 @@ Proof.
     definition is correct, prove the lemma [beq_list_true_iff]. *)
 
 Fixpoint beq_list {A : Type} (beq : A -> A -> bool)
-                  (l1 l2 : list A) : bool
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+                  (l1 l2 : list A) : bool :=
+  match l1 with
+    | [] => match l2 with
+      | [] => true
+      | _ => false
+      end
+    | x :: xs => match l2 with
+      | [] => false
+      | y :: ys => match beq x y with
+        | false => false
+        | true => beq_list beq xs ys
+        end
+      end
+  end.
 
 Lemma beq_list_true_iff :
   forall A (beq : A -> A -> bool),
     (forall a1 a2, beq a1 a2 = true <-> a1 = a2) ->
     forall l1 l2, beq_list beq l1 l2 = true <-> l1 = l2.
 Proof.
-(* FILL IN HERE *) Admitted.
+  intros A beq H.
+  induction l1 as [|x l1].
+  + induction l2 as [|y l2].
+    - split. reflexivity.
+    intros H2. reflexivity.
+-  induction l2 as [|yy l2].
+    split. inversion 1.
+    simpl.
+      * intros H1.
+Admitted.
 (** [] *)
 
 (** **** Exercise: 2 stars, recommended (All_forallb)  *)
@@ -1455,7 +1493,16 @@ Fixpoint forallb {X : Type} (test : X -> bool) (l : list X) : bool :=
 Theorem forallb_true_iff : forall X test (l : list X),
    forallb test l = true <-> All (fun x => test x = true) l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  induction l.
+  simpl. split. reflexivity. reflexivity.
+  simpl. split.
+  intros H. apply andb_true_iff in H.
+  destruct H as [H1 H2]. split.
+  assumption. apply IHl. assumption.
+  intros [H3 H4].
+  apply andb_true_iff. split. assumption.
+  apply IHl in H4. assumption.
+Qed.
 
 (** Are there any important properties of the function [forallb] which
     are not captured by this specification? *)
