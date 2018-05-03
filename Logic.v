@@ -1249,7 +1249,10 @@ Theorem evenb_double_conv : forall n,
                 else S (double k).
 Proof.
   (* Hint: Use the [evenb_S] lemma from [Induction.v]. *)
-  (* FILL IN HERE *) Admitted.
+  intros.
+  induction n. simpl. exists 0. reflexivity.
+  inversion IHn.
+Admitted.
 (** [] *)
 
 Theorem even_bool_prop : forall n,
@@ -1364,10 +1367,41 @@ Proof. apply even_bool_prop. reflexivity. Qed.
 (** The following lemmas relate the propositional connectives studied
     in this chapter to the corresponding boolean operations. *)
 
+(** Pongo aquí estos lemas porque no me los está importando de Basics *)
+Theorem andb_true_elim1 : forall b c : bool,
+  andb b c = true -> b = true.
+Proof.
+  intros b c H.
+  destruct b.
+  reflexivity.
+  rewrite <- H.
+  destruct c.
+  reflexivity.
+  reflexivity.
+Qed.
+
+Theorem andb_true_elim2 : forall b c : bool,
+  andb b c = true -> c = true.
+Proof.
+  intros b c H.
+  destruct c.
+  reflexivity.
+  rewrite <- H.
+  destruct b.
+  reflexivity.
+  reflexivity.
+Qed.
+
 Lemma andb_true_iff : forall b1 b2:bool,
   b1 && b2 = true <-> b1 = true /\ b2 = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  split. intros H. split. apply andb_true_elim1 in H. apply H.
+  apply andb_true_elim2 in H. apply H.
+  intros H.
+  inversion H. destruct b1. apply H1.
+  destruct b2. apply H0. simpl. apply H1.
+Qed.
 
 Lemma orb_true_iff : forall b1 b2,
   b1 || b2 = true <-> b1 = true \/ b2 = true.
