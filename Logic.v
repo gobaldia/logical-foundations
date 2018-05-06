@@ -1638,7 +1638,13 @@ Qed.
 Theorem excluded_middle_irrefutable: forall (P:Prop),
   ~ ~ (P \/ ~ P).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  unfold not.
+  intros.
+  apply H.
+  right. intros H1. apply H.
+  left. apply H1.
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, advanced (not_exists_dist)  *)
@@ -1658,7 +1664,13 @@ Theorem not_exists_dist :
   forall (X:Type) (P : X -> Prop),
     ~ (exists x, ~ P x) -> (forall x, P x).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  destruct (H (P x)).
+  apply H1.
+  exfalso.
+  apply H0.
+  exists x. apply H1.
+Qed.
 (** [] *)
 
 (** **** Exercise: 5 stars, optional (classical_axioms)  *)
@@ -1683,6 +1695,17 @@ Definition de_morgan_not_and_not := forall P Q:Prop,
 
 Definition implies_to_or := forall P Q:Prop,
   (P->Q) -> (~P\/Q).
+
+Theorem double_negation_implies_de_morgan : forall P Q: Prop,
+  peirce <-> excluded_middle.
+Proof.
+  intros.
+  (*unfold peirce.
+  unfold excluded_middle.*)
+  assert (P -> (P \/ ~P)). intros H. left. apply H.
+  assert ((P \/ ~P) -> False). intros H1.
+Admitted.
+  
 
 (* FILL IN HERE *)
 (** [] *)

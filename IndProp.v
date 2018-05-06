@@ -1,8 +1,9 @@
 (** * IndProp: Inductively Defined Propositions *)
 
-Set Warnings "-notation-overridden,-parsing".
+(** Set Warnings "-notation-overridden,-parsing". *)
 Require Export Logic.
 Require Coq.omega.Omega.
+Require Import NAxioms NProperties OrdersFacts.
 
 (* ################################################################# *)
 (** * Inductively Defined Propositions *)
@@ -130,7 +131,11 @@ Qed.
 Theorem ev_double : forall n,
   ev (double n).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n.
+  induction n.
+  simpl. apply ev_0.
+  simpl. apply ev_SS. apply IHn.
+Qed.
 (** [] *)
 
 (* ################################################################# *)
