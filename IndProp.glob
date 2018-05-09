@@ -1,0 +1,373 @@
+DIGEST 5daff935832c95fc07262f76da4b809f
+FIndProp
+R120:124 Logic <> <> lib
+R135:149 Coq.omega.Omega <> <> lib
+R167:173 Coq.Numbers.Natural.Abstract.NAxioms <> <> lib
+R175:185 Coq.Numbers.Natural.Abstract.NProperties <> <> lib
+R187:197 Coq.Structures.OrdersFacts <> <> lib
+ind 3009:3010 <> ev
+constr 3031:3034 <> ev_0
+constr 3045:3049 <> ev_SS
+R3014:3016 Coq.Init.Datatypes <> nat ind
+R3038:3039 IndProp <> ev ind
+R3064:3066 Coq.Init.Datatypes <> nat ind
+R3077:3078 IndProp <> ev ind
+R3081:3081 Coq.Init.Datatypes <> S constr
+R3084:3084 Coq.Init.Datatypes <> S constr
+R3086:3086 IndProp <> n var
+R3069:3070 IndProp <> ev ind
+R3072:3072 IndProp <> n var
+ind 3996:4003 <> wrong_ev
+constr 4027:4036 <> wrong_ev_0
+constr 4053:4063 <> wrong_ev_SS
+R4010:4012 Coq.Init.Datatypes <> nat ind
+R4040:4047 IndProp <> wrong_ev ind
+prf 4840:4843 <> ev_4
+R4847:4848 IndProp <> ev ind
+R4866:4870 IndProp <> ev_SS constr
+R4866:4870 IndProp <> ev_SS constr
+R4879:4883 IndProp <> ev_SS constr
+R4879:4883 IndProp <> ev_SS constr
+R4892:4895 IndProp <> ev_0 constr
+R4892:4895 IndProp <> ev_0 constr
+prf 4967:4971 <> ev_4'
+R4975:4976 IndProp <> ev ind
+R4995:4999 IndProp <> ev_SS constr
+R5004:5008 IndProp <> ev_SS constr
+R5012:5015 IndProp <> ev_0 constr
+R4995:4999 IndProp <> ev_SS constr
+R5004:5008 IndProp <> ev_SS constr
+R5012:5015 IndProp <> ev_0 constr
+prf 5106:5113 <> ev_plus4
+R5135:5136 IndProp <> ev ind
+R5140:5142 Basics <> :nat_scope:x_'+'_x not
+R5143:5143 IndProp <> n var
+R5127:5128 IndProp <> ev ind
+R5130:5130 IndProp <> n var
+R5192:5196 IndProp <> ev_SS constr
+R5192:5196 IndProp <> ev_SS constr
+R5205:5209 IndProp <> ev_SS constr
+R5205:5209 IndProp <> ev_SS constr
+prf 5355:5363 <> ev_double
+R5379:5380 IndProp <> ev ind
+R5383:5388 Induction <> double def
+R5390:5390 IndProp <> n var
+R5443:5446 IndProp <> ev_0 constr
+R5443:5446 IndProp <> ev_0 constr
+R5464:5468 IndProp <> ev_SS constr
+R5464:5468 IndProp <> ev_SS constr
+prf 7852:7860 <> ev_minus2
+R7884:7885 IndProp <> ev ind
+R7888:7891 Coq.Init.Peano <> pred def
+R7894:7897 Coq.Init.Peano <> pred def
+R7899:7899 IndProp <> n var
+R7876:7877 IndProp <> ev ind
+R7879:7879 IndProp <> n var
+R7985:7988 IndProp <> ev_0 constr
+R7985:7988 IndProp <> ev_0 constr
+prf 8730:8739 <> ev_minus2'
+R8763:8764 IndProp <> ev ind
+R8767:8770 Coq.Init.Peano <> pred def
+R8773:8776 Coq.Init.Peano <> pred def
+R8778:8778 IndProp <> n var
+R8755:8756 IndProp <> ev ind
+R8758:8758 IndProp <> n var
+R8863:8866 IndProp <> ev_0 constr
+R8863:8866 IndProp <> ev_0 constr
+prf 9263:9269 <> evSS_ev
+R9301:9302 IndProp <> ev ind
+R9304:9304 IndProp <> n var
+R9285:9286 IndProp <> ev ind
+R9289:9289 Coq.Init.Datatypes <> S constr
+R9292:9292 Coq.Init.Datatypes <> S constr
+R9294:9294 IndProp <> n var
+prf 10593:10599 <> evSS_ev
+R10631:10632 IndProp <> ev ind
+R10634:10634 IndProp <> n var
+R10615:10616 IndProp <> ev ind
+R10619:10619 Coq.Init.Datatypes <> S constr
+R10622:10622 Coq.Init.Datatypes <> S constr
+R10624:10624 IndProp <> n var
+prf 10930:10941 <> one_not_even
+R10945:10946 Coq.Init.Logic <> :type_scope:'~'_x not
+R10947:10948 IndProp <> ev ind
+prf 11098:11109 <> SSSSev__even
+R11149:11150 IndProp <> ev ind
+R11152:11152 IndProp <> n var
+R11125:11126 IndProp <> ev ind
+R11129:11129 Coq.Init.Datatypes <> S constr
+R11132:11132 Coq.Init.Datatypes <> S constr
+R11135:11135 Coq.Init.Datatypes <> S constr
+R11138:11138 Coq.Init.Datatypes <> S constr
+R11140:11140 IndProp <> n var
+R11212:11218 IndProp <> evSS_ev thm
+R11212:11218 IndProp <> evSS_ev thm
+prf 11358:11371 <> even5_nonsense
+R11390:11392 Coq.Init.Logic <> :type_scope:x_'='_x not
+R11386:11388 Basics <> :nat_scope:x_'+'_x not
+R11377:11378 IndProp <> ev ind
+prf 12933:12948 <> ev_even_firsttry
+R12972:12978 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R12980:12981 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R12983:12985 Coq.Init.Logic <> :type_scope:x_'='_x not
+R12982:12982 IndProp <> n var
+R12986:12991 Induction <> double def
+R12993:12993 IndProp <> k var
+R12964:12965 IndProp <> ev ind
+R12967:12967 IndProp <> n var
+R14398:14404 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R14406:14407 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R14416:14418 Coq.Init.Logic <> :type_scope:x_'='_x not
+R14408:14408 Coq.Init.Datatypes <> S constr
+R14411:14411 Coq.Init.Datatypes <> S constr
+R14419:14424 Induction <> double def
+R14426:14426 IndProp <> k var
+R14351:14357 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R14360:14361 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R14364:14366 Coq.Init.Logic <> :type_scope:x_'='_x not
+R14367:14372 Induction <> double def
+R14374:14375 IndProp <> k' var
+R14398:14404 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R14406:14407 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R14416:14418 Coq.Init.Logic <> :type_scope:x_'='_x not
+R14408:14408 Coq.Init.Datatypes <> S constr
+R14411:14411 Coq.Init.Datatypes <> S constr
+R14419:14424 Induction <> double def
+R14426:14426 IndProp <> k var
+R14351:14357 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R14360:14361 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R14364:14366 Coq.Init.Logic <> :type_scope:x_'='_x not
+R14367:14372 Induction <> double def
+R14374:14375 IndProp <> k' var
+R14475:14475 Coq.Init.Datatypes <> S constr
+R14475:14475 Coq.Init.Datatypes <> S constr
+prf 15273:15279 <> ev_even
+R15303:15309 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R15311:15312 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R15314:15316 Coq.Init.Logic <> :type_scope:x_'='_x not
+R15313:15313 IndProp <> n var
+R15317:15322 Induction <> double def
+R15324:15324 IndProp <> k var
+R15295:15296 IndProp <> ev ind
+R15298:15298 IndProp <> n var
+R15547:15547 Coq.Init.Datatypes <> S constr
+R15547:15547 Coq.Init.Datatypes <> S constr
+prf 15937:15947 <> ev_even_iff
+R15967:15971 Coq.Init.Logic <> :type_scope:x_'<->'_x not
+R15963:15964 IndProp <> ev ind
+R15966:15966 IndProp <> n var
+R15972:15978 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R15980:15981 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R15983:15985 Coq.Init.Logic <> :type_scope:x_'='_x not
+R15982:15982 IndProp <> n var
+R15986:15991 Induction <> double def
+R15993:15993 IndProp <> k var
+R16041:16047 IndProp <> ev_even thm
+R16041:16047 IndProp <> ev_even thm
+R16096:16104 IndProp <> ev_double thm
+R16096:16104 IndProp <> ev_double thm
+prf 16536:16541 <> ev_sum
+R16573:16574 IndProp <> ev ind
+R16578:16580 Basics <> :nat_scope:x_'+'_x not
+R16577:16577 IndProp <> n var
+R16581:16581 IndProp <> m var
+R16565:16566 IndProp <> ev ind
+R16568:16568 IndProp <> m var
+R16557:16558 IndProp <> ev ind
+R16560:16560 IndProp <> n var
+ind 16872:16874 <> ev'
+constr 16895:16899 <> ev'_0
+constr 16911:16915 <> ev'_2
+constr 16927:16933 <> ev'_sum
+R16878:16880 Coq.Init.Datatypes <> nat ind
+R16903:16905 IndProp <> ev' ind
+R16919:16921 IndProp <> ev' ind
+R16967:16969 IndProp <> ev' ind
+R16973:16975 Basics <> :nat_scope:x_'+'_x not
+R16972:16972 IndProp <> n var
+R16976:16976 IndProp <> m var
+R16958:16960 IndProp <> ev' ind
+R16962:16962 IndProp <> m var
+R16949:16951 IndProp <> ev' ind
+R16953:16953 IndProp <> n var
+prf 17156:17161 <> ev'_ev
+R17180:17184 Coq.Init.Logic <> :type_scope:x_'<->'_x not
+R17175:17177 IndProp <> ev' ind
+R17179:17179 IndProp <> n var
+R17185:17186 IndProp <> ev ind
+R17188:17188 IndProp <> n var
+prf 17396:17404 <> ev_ev__ev
+R17442:17443 IndProp <> ev ind
+R17445:17445 IndProp <> m var
+R17434:17435 IndProp <> ev ind
+R17437:17437 IndProp <> n var
+R17422:17423 IndProp <> ev ind
+R17427:17427 Basics <> :nat_scope:x_'+'_x not
+R17426:17426 IndProp <> n var
+R17428:17428 IndProp <> m var
+prf 17723:17734 <> ev_plus_plus
+R17778:17779 IndProp <> ev ind
+R17783:17783 Basics <> :nat_scope:x_'+'_x not
+R17782:17782 IndProp <> m var
+R17784:17784 IndProp <> p var
+R17766:17767 IndProp <> ev ind
+R17771:17771 Basics <> :nat_scope:x_'+'_x not
+R17770:17770 IndProp <> n var
+R17772:17772 IndProp <> p var
+R17754:17755 IndProp <> ev ind
+R17759:17759 Basics <> :nat_scope:x_'+'_x not
+R17758:17758 IndProp <> n var
+R17760:17760 IndProp <> m var
+mod 18315:18324 <> Playground
+ind 18732:18733 Playground le
+constr 18763:18766 Playground le_n
+constr 18791:18794 Playground le_S
+R18744:18746 Coq.Init.Datatypes <> nat ind
+R18737:18739 Coq.Init.Datatypes <> nat ind
+R18780:18781 IndProp <> le ind
+R18785:18785 IndProp <> n var
+R18783:18783 IndProp <> n var
+R18823:18824 IndProp <> le ind
+R18829:18829 Coq.Init.Datatypes <> S constr
+R18831:18831 IndProp <> m var
+R18826:18826 IndProp <> n var
+R18811:18812 IndProp <> le ind
+R18816:18816 IndProp <> m var
+R18814:18814 IndProp <> n var
+R18859:18860 IndProp Playground le ind
+not 18846 Playground ::x_'<='_x
+prf 19658:19665 Playground test_le1
+R19672:19675 IndProp Playground ::x_'<='_x not
+R19718:19721 IndProp Playground le_n constr
+R19718:19721 IndProp Playground le_n constr
+prf 19739:19746 Playground test_le2
+R19753:19756 IndProp Playground ::x_'<='_x not
+R19799:19802 IndProp Playground le_S constr
+R19799:19802 IndProp Playground le_S constr
+R19811:19814 IndProp Playground le_S constr
+R19811:19814 IndProp Playground le_S constr
+R19823:19826 IndProp Playground le_S constr
+R19823:19826 IndProp Playground le_S constr
+R19835:19838 IndProp Playground le_n constr
+R19835:19838 IndProp Playground le_n constr
+prf 19856:19863 Playground test_le3
+R19886:19888 Coq.Init.Logic <> :type_scope:x_'='_x not
+R19882:19884 Basics <> :nat_scope:x_'+'_x not
+R19871:19874 IndProp Playground ::x_'<='_x not
+R20064:20073 IndProp <> <> mod
+def 20088:20089 <> lt
+R20096:20098 Coq.Init.Datatypes <> nat ind
+R20104:20105 Coq.Init.Peano <> le ind
+R20113:20113 IndProp <> m var
+R20108:20108 Coq.Init.Datatypes <> S constr
+R20110:20110 IndProp <> n var
+R20138:20139 IndProp <> lt def
+not 20126 <> ::x_'<'_x
+ind 20215:20223 <> square_of
+constr 20253:20254 <> sq
+R20234:20236 Coq.Init.Datatypes <> nat ind
+R20227:20229 Coq.Init.Datatypes <> nat ind
+R20267:20269 Coq.Init.Datatypes <> nat ind
+R20272:20280 IndProp <> square_of ind
+R20286:20288 Basics <> :nat_scope:x_'*'_x not
+R20285:20285 IndProp <> n var
+R20289:20289 IndProp <> n var
+R20282:20282 IndProp <> n var
+ind 20304:20311 <> next_nat
+constr 20341:20342 <> nn
+R20322:20324 Coq.Init.Datatypes <> nat ind
+R20315:20317 Coq.Init.Datatypes <> nat ind
+R20355:20357 Coq.Init.Datatypes <> nat ind
+R20360:20367 IndProp <> next_nat ind
+R20372:20372 Coq.Init.Datatypes <> S constr
+R20374:20374 IndProp <> n var
+R20369:20369 IndProp <> n var
+ind 20389:20397 <> next_even
+constr 20427:20430 <> ne_1
+constr 20478:20481 <> ne_2
+R20408:20410 Coq.Init.Datatypes <> nat ind
+R20401:20403 Coq.Init.Datatypes <> nat ind
+R20456:20464 IndProp <> next_even ind
+R20469:20469 Coq.Init.Datatypes <> S constr
+R20471:20471 IndProp <> n var
+R20466:20466 IndProp <> n var
+R20444:20445 IndProp <> ev ind
+R20448:20448 Coq.Init.Datatypes <> S constr
+R20450:20450 IndProp <> n var
+R20511:20519 IndProp <> next_even ind
+R20524:20524 Coq.Init.Datatypes <> S constr
+R20527:20527 Coq.Init.Datatypes <> S constr
+R20529:20529 IndProp <> n var
+R20521:20521 IndProp <> n var
+R20495:20496 IndProp <> ev ind
+R20499:20499 Coq.Init.Datatypes <> S constr
+R20502:20502 Coq.Init.Datatypes <> S constr
+R20504:20504 IndProp <> n var
+prf 21149:21156 <> le_trans
+R21195:21198 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R21194:21194 IndProp <> m var
+R21199:21199 IndProp <> o var
+R21185:21188 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R21184:21184 IndProp <> n var
+R21189:21189 IndProp <> o var
+R21175:21178 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R21174:21174 IndProp <> m var
+R21179:21179 IndProp <> n var
+prf 21249:21254 <> O_le_n
+R21271:21274 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R21275:21275 IndProp <> n var
+prf 21325:21340 <> n_le_m__Sn_le_Sm
+R21371:21374 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R21368:21368 Coq.Init.Datatypes <> S constr
+R21370:21370 IndProp <> n var
+R21375:21375 Coq.Init.Datatypes <> S constr
+R21377:21377 IndProp <> m var
+R21359:21362 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R21358:21358 IndProp <> n var
+R21363:21363 IndProp <> m var
+prf 21427:21442 <> Sn_le_Sm__n_le_m
+R21475:21478 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R21474:21474 IndProp <> n var
+R21479:21479 IndProp <> m var
+R21463:21466 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R21460:21460 Coq.Init.Datatypes <> S constr
+R21462:21462 IndProp <> n var
+R21467:21467 Coq.Init.Datatypes <> S constr
+R21469:21469 IndProp <> m var
+prf 21529:21537 <> le_plus_l
+R21556:21559 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R21555:21555 IndProp <> a var
+R21561:21563 Basics <> :nat_scope:x_'+'_x not
+R21560:21560 IndProp <> a var
+R21564:21564 IndProp <> b var
+prf 21614:21620 <> plus_lt
+R21665:21668 Coq.Init.Logic <> :type_scope:x_'/\'_x not
+R21661:21663 IndProp <> ::x_'<'_x not
+R21659:21660 IndProp <> n1 var
+R21664:21664 IndProp <> m var
+R21671:21673 IndProp <> ::x_'<'_x not
+R21669:21670 IndProp <> n2 var
+R21674:21674 IndProp <> m var
+R21649:21651 IndProp <> ::x_'<'_x not
+R21644:21646 Basics <> :nat_scope:x_'+'_x not
+R21642:21643 IndProp <> n1 var
+R21647:21648 IndProp <> n2 var
+R21652:21652 IndProp <> m var
+R21692:21693 IndProp <> lt def
+prf 21735:21738 <> lt_S
+R21768:21770 IndProp <> ::x_'<'_x not
+R21767:21767 IndProp <> n var
+R21771:21771 Coq.Init.Datatypes <> S constr
+R21773:21773 IndProp <> m var
+R21757:21759 IndProp <> ::x_'<'_x not
+R21756:21756 IndProp <> n var
+R21760:21760 IndProp <> m var
+prf 21823:21834 <> leb_complete
+R21871:21874 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R21870:21870 IndProp <> n var
+R21875:21875 IndProp <> m var
+R21859:21861 Coq.Init.Logic <> :type_scope:x_'='_x not
+R21852:21854 Coq.Bool.Bool <> leb def
+R21858:21858 IndProp <> m var
+R21856:21856 IndProp <> n var
+R21862:21865 Basics <> true constr
