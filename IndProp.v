@@ -1,9 +1,8 @@
 (** * IndProp: Inductively Defined Propositions *)
 
-(** Set Warnings "-notation-overridden,-parsing". *)
+(**Set Warnings "-notation-overridden,-parsing".*)
 Require Export Logic.
 Require Coq.omega.Omega.
-Require Import NAxioms NProperties OrdersFacts.
 
 (* ################################################################# *)
 (** * Inductively Defined Propositions *)
@@ -456,7 +455,12 @@ Proof.
 Theorem ev_ev__ev : forall n m,
   ev (n+m) -> ev n -> ev m.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  induction H0.
+  apply H.
+  apply IHev.
+  apply evSS_ev. simpl in H. apply H.
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, optional (ev_plus_plus)  *)
@@ -572,45 +576,89 @@ Inductive next_even : nat -> nat -> Prop :=
 
 Lemma le_trans : forall m n o, m <= n -> n <= o -> m <= o.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  generalize dependent H.
+  generalize dependent m.
+  induction H0.
+  intros. apply H.
+  intros. apply le_S. apply IHle. apply H.
+Qed.
 
 Theorem O_le_n : forall n,
   0 <= n.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  induction n.
+  reflexivity.
+  apply le_S. apply IHn.
+Qed.
 
 Theorem n_le_m__Sn_le_Sm : forall n m,
   n <= m -> S n <= S m.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  induction H.
+  reflexivity.
+  apply le_S. apply IHle.
+Qed.
 
 Theorem Sn_le_Sm__n_le_m : forall n m,
   S n <= S m -> n <= m.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  inversion H.
+  reflexivity.
+  induction n.
+  destruct m.
+  reflexivity.
+Admitted.
 
 Theorem le_plus_l : forall a b,
   a <= a + b.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  induction a.
+  simpl. apply O_le_n.
+  simpl. apply n_le_m__Sn_le_Sm. apply IHa.
+Qed.
 
 Theorem plus_lt : forall n1 n2 m,
   n1 + n2 < m ->
   n1 < m /\ n2 < m.
 Proof.
  unfold lt.
- (* FILL IN HERE *) Admitted.
+ intros.
+ split.
+ induction H.
+ omega.
+ omega.
+ omega.
+Qed.
 
 Theorem lt_S : forall n m,
   n < m ->
   n < S m.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  unfold lt.
+  intros.
+  apply le_S.
+  apply H.
+Qed.
 
 Theorem leb_complete : forall n m,
   leb n m = true -> n <= m.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  induction n.
+  destruct m.
+  reflexivity.
+  omega.
+  simpl.
+  generalize dependent IHn.
+  simpl.
+  generalize dependent H.
+  simpl.
+Admitted.
 
 (** Hint: The next one may be easiest to prove by induction on [m]. *)
 
@@ -670,8 +718,7 @@ Inductive R : nat -> nat -> nat -> Prop :=
     Figure out which function; then state and prove this equivalence
     in Coq? *)
 
-Definition fR : nat -> nat -> nat
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+Definition fR : nat -> nat -> nat := plus.
 
 Theorem R_equiv_fR : forall m n o, R m n o <-> fR m n = o.
 Proof.
@@ -751,13 +798,13 @@ End R.
 (** Regular expressions are a simple language for describing strings,
     defined as follows: *)
 
-Inductive reg_exp {T : Type} : Type :=
+(**Inductive reg_exp {T : Type} : Type :=
 | EmptySet : reg_exp
 | EmptyStr : reg_exp
 | Char : T -> reg_exp
 | App : reg_exp -> reg_exp -> reg_exp
 | Union : reg_exp -> reg_exp -> reg_exp
-| Star : reg_exp -> reg_exp.
+| Star : reg_exp -> reg_exp.*)
 
 (** Note that this definition is _polymorphic_: Regular
     expressions in [reg_exp T] describe strings with characters drawn
@@ -796,7 +843,7 @@ Inductive reg_exp {T : Type} : Type :=
 (** We can easily translate this informal definition into an
     [Inductive] one as follows: *)
 
-Inductive exp_match {T} : list T -> reg_exp -> Prop :=
+(**Inductive exp_match {T} : list T -> reg_exp -> Prop :=
 | MEmpty : exp_match [] EmptyStr
 | MChar : forall x, exp_match [x] (Char x)
 | MApp : forall s1 re1 s2 re2,
@@ -813,13 +860,13 @@ Inductive exp_match {T} : list T -> reg_exp -> Prop :=
 | MStarApp : forall s1 s2 re,
                exp_match s1 re ->
                exp_match s2 (Star re) ->
-               exp_match (s1 ++ s2) (Star re).
+               exp_match (s1 ++ s2) (Star re).*)
 
 (** Again, for readability, we can also display this definition using
     inference-rule notation.  At the same time, let's introduce a more
     readable infix notation. *)
 
-Notation "s =~ re" := (exp_match s re) (at level 80).
+(**Notation "s =~ re" := (exp_match s re) (at level 80).*)
 
 (**
 
@@ -870,7 +917,7 @@ Notation "s =~ re" := (exp_match s re) (at level 80).
 
     Let's illustrate these rules with a few examples. *)
 
-Example reg_exp_ex1 : [1] =~ Char 1.
+(**Example reg_exp_ex1 : [1] =~ Char 1.
 Proof.
   apply MChar.
 Qed.
@@ -880,7 +927,7 @@ Proof.
   apply (MApp [1] _ [2]).
   - apply MChar.
   - apply MChar.
-Qed.
+Qed.*)
 
 (** (Notice how the last example applies [MApp] to the strings [[1]]
     and [[2]] directly.  Since the goal mentions [[1; 2]] instead of
@@ -890,17 +937,17 @@ Qed.
     Using [inversion], we can also show that certain strings do _not_
     match a regular expression: *)
 
-Example reg_exp_ex3 : ~ ([1; 2] =~ Char 1).
+(**Example reg_exp_ex3 : ~ ([1; 2] =~ Char 1).
 Proof.
   intros H. inversion H.
-Qed.
+Qed.*)
 
 (** We can define helper functions for writing down regular
     expressions. The [reg_exp_of_list] function constructs a regular
     expression that matches exactly the list that it receives as an
     argument: *)
 
-Fixpoint reg_exp_of_list {T} (l : list T) :=
+(**Fixpoint reg_exp_of_list {T} (l : list T) :=
   match l with
   | [] => EmptyStr
   | x :: l' => App (Char x) (reg_exp_of_list l')
@@ -915,13 +962,13 @@ Proof.
   apply (MApp [3]).
   { apply MChar. }
   apply MEmpty.
-Qed.
+Qed.*)
 
 (** We can also prove general facts about [exp_match].  For instance,
     the following lemma shows that every string [s] that matches [re]
     also matches [Star re]. *)
 
-Lemma MStar1 :
+(**Lemma MStar1 :
   forall T s (re : @reg_exp T) ,
     s =~ re ->
     s =~ Star re.
@@ -931,7 +978,7 @@ Proof.
   apply (MStarApp s [] re).
   - apply H.
   - apply MStar0.
-Qed.
+Qed.*)
 
 (** (Note the use of [app_nil_r] to change the goal of the theorem to
     exactly the same shape expected by [MStarApp].) *)
@@ -941,7 +988,7 @@ Qed.
     at the beginning of the chapter can be obtained from the formal
     inductive definition. *)
 
-Lemma empty_is_empty : forall T (s : list T),
+(**Lemma empty_is_empty : forall T (s : list T),
   ~ (s =~ EmptySet).
 Proof.
   (* FILL IN HERE *) Admitted.
@@ -950,18 +997,18 @@ Lemma MUnion' : forall T (s : list T) (re1 re2 : @reg_exp T),
   s =~ re1 \/ s =~ re2 ->
   s =~ Union re1 re2.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  (* FILL IN HERE *) Admitted.*)
 
 (** The next lemma is stated in terms of the [fold] function from the
     [Poly] chapter: If [ss : list (list T)] represents a sequence of
     strings [s1, ..., sn], then [fold app ss []] is the result of
     concatenating them all together. *)
 
-Lemma MStar' : forall T (ss : list (list T)) (re : reg_exp),
+(**Lemma MStar' : forall T (ss : list (list T)) (re : reg_exp),
   (forall s, In s ss -> s =~ re) ->
   fold app ss [] =~ Star re.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  (* FILL IN HERE *) Admitted.*)
 (** [] *)
 
 (** **** Exercise: 4 stars, optional (reg_exp_of_list_spec)  *)
@@ -969,10 +1016,10 @@ Proof.
     specification: *)
 
 
-Lemma reg_exp_of_list_spec : forall T (s1 s2 : list T),
+(**Lemma reg_exp_of_list_spec : forall T (s1 s2 : list T),
   s1 =~ reg_exp_of_list s2 <-> s1 = s2.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  (* FILL IN HERE *) Admitted.*)
 (** [] *)
 
 (** Since the definition of [exp_match] has a recursive
@@ -988,7 +1035,7 @@ Proof.
     To state this theorem, we first define a function [re_chars] that
     lists all characters that occur in a regular expression: *)
 
-Fixpoint re_chars {T} (re : reg_exp) : list T :=
+(**Fixpoint re_chars {T} (re : reg_exp) : list T :=
   match re with
   | EmptySet => []
   | EmptyStr => []
@@ -996,11 +1043,11 @@ Fixpoint re_chars {T} (re : reg_exp) : list T :=
   | App re1 re2 => re_chars re1 ++ re_chars re2
   | Union re1 re2 => re_chars re1 ++ re_chars re2
   | Star re => re_chars re
-  end.
+  end.*)
 
 (** We can then phrase our theorem as follows: *)
 
-Theorem in_re_match : forall T (s : list T) (re : reg_exp) (x : T),
+(**Theorem in_re_match : forall T (s : list T) (re : reg_exp) (x : T),
   s =~ re ->
   In x s ->
   In x (re_chars re).
@@ -1047,20 +1094,20 @@ Proof.
       apply (IH1 Hin).
     + (* In x s2 *)
       apply (IH2 Hin).
-Qed.
+Qed.*)
 
 (** **** Exercise: 4 stars (re_not_empty)  *)
 (** Write a recursive function [re_not_empty] that tests whether a
     regular expression matches some string. Prove that your function
     is correct. *)
 
-Fixpoint re_not_empty {T : Type} (re : @reg_exp T) : bool
+(**Fixpoint re_not_empty {T : Type} (re : @reg_exp T) : bool
   (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
 
 Lemma re_not_empty_correct : forall T (re : @reg_exp T),
   (exists s, s =~ re) <-> re_not_empty re = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  (* FILL IN HERE *) Admitted.*)
 (** [] *)
 
 (* ================================================================= *)
@@ -1072,7 +1119,7 @@ Proof.
     information (much as [destruct] can do), and leave you unable to
     complete the proof.  Here's an example: *)
 
-Lemma star_app: forall T (s1 s2 : list T) (re : @reg_exp T),
+(**Lemma star_app: forall T (s1 s2 : list T) (re : @reg_exp T),
   s1 =~ Star re ->
   s2 =~ Star re ->
   s1 ++ s2 =~ Star re.
@@ -1108,7 +1155,7 @@ Proof.
     which is clearly impossible. *)
 
   - (* MChar. Stuck... *)
-Abort.
+Abort.*)
 
 (** The problem is that [induction] over a Prop hypothesis only works
     properly with hypotheses that are completely general, i.e., ones
@@ -1121,7 +1168,7 @@ Abort.
     We can solve this problem by generalizing over the problematic
     expressions with an explicit equality: *)
 
-Lemma star_app: forall T (s1 s2 : list T) (re re' : reg_exp),
+(**Lemma star_app: forall T (s1 s2 : list T) (re re' : reg_exp),
   re' = Star re ->
   s1 =~ re' ->
   s2 =~ Star re ->
@@ -1136,14 +1183,14 @@ Lemma star_app: forall T (s1 s2 : list T) (re re' : reg_exp),
     automatically generate such equations for us, avoiding thus the
     need for changing the statements of our theorems. *)
 
-Abort.
+Abort.*)
 
 (** Invoking the tactic [remember e as x] causes Coq to (1) replace
     all occurrences of the expression [e] by the variable [x], and (2)
     add an equation [x = e] to the context.  Here's how we can use it
     to show the above result: *)
 
-Lemma star_app: forall T (s1 s2 : list T) (re : reg_exp),
+(**Lemma star_app: forall T (s1 s2 : list T) (re : reg_exp),
   s1 =~ Star re ->
   s2 =~ Star re ->
   s1 ++ s2 =~ Star re.
@@ -1184,7 +1231,7 @@ Proof.
     + apply IH2.
       * reflexivity.
       * apply H1.
-Qed.
+Qed.*)
 
 (** **** Exercise: 4 stars, optional (exp_match_ex2)  *)
 
@@ -1192,13 +1239,13 @@ Qed.
     [MStar'] exercise above), shows that our definition of [exp_match]
     for [Star] is equivalent to the informal one given previously. *)
 
-Lemma MStar'' : forall T (s : list T) (re : reg_exp),
+(**Lemma MStar'' : forall T (s : list T) (re : reg_exp),
   s =~ Star re ->
   exists ss : list (list T),
     s = fold app ss []
     /\ forall s', In s' ss -> s' =~ re.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  (* FILL IN HERE *) Admitted.*)
 (** [] *)
 
 (** **** Exercise: 5 stars, advanced (pumping)  *)
@@ -1214,7 +1261,7 @@ Proof.
     calculate, for each regular expression [re], the minimum length
     for strings [s] to guarantee "pumpability." *)
 
-Module Pumping.
+(**Module Pumping.
 
 Fixpoint pumping_constant {T} (re : @reg_exp T) : nat :=
   match re with
@@ -1226,12 +1273,12 @@ Fixpoint pumping_constant {T} (re : @reg_exp T) : nat :=
   | Union re1 re2 =>
       pumping_constant re1 + pumping_constant re2
   | Star _ => 1
-  end.
+  end.*)
 
 (** Next, it is useful to define an auxiliary function that repeats a
     string (appends it to itself) some number of times. *)
 
-Fixpoint napp {T} (n : nat) (l : list T) : list T :=
+(**Fixpoint napp {T} (n : nat) (l : list T) : list T :=
   match n with
   | 0 => []
   | S n' => l ++ napp n' l
@@ -1244,7 +1291,7 @@ Proof.
   induction n as [|n IHn].
   - reflexivity.
   - simpl. rewrite IHn, app_assoc. reflexivity.
-Qed.
+Qed.*)
 
 (** Now, the pumping lemma itself says that, if [s =~ re] and if the
     length of [s] is at least the pumping constant of [re], then [s]
@@ -1255,7 +1302,7 @@ Qed.
     a (constructive!) way to generate strings matching [re] that are
     as long as we like. *)
 
-Lemma pumping : forall T (re : @reg_exp T) s,
+(**Lemma pumping : forall T (re : @reg_exp T) s,
   s =~ re ->
   pumping_constant re <= length s ->
   exists s1 s2 s3,
@@ -1283,7 +1330,7 @@ Proof.
     simpl. omega.
   (* FILL IN HERE *) Admitted.
 
-End Pumping.
+End Pumping.*)
 (** [] *)
 
 (* ################################################################# *)
@@ -1353,7 +1400,11 @@ Qed.
 (** **** Exercise: 2 stars, recommended (reflect_iff)  *)
 Theorem reflect_iff : forall P b, reflect P b -> (P <-> b = true).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  destruct b.
+  split.
+Admitted.
+  
 (** [] *)
 
 (** The advantage of [reflect] over the normal "if and only if"
