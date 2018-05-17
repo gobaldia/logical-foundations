@@ -648,17 +648,15 @@ Qed.
 Theorem leb_complete : forall n m,
   leb n m = true -> n <= m.
 Proof.
-  intros.
+  intro n.
   induction n.
-  destruct m.
-  reflexivity.
-  omega.
-  simpl.
-  generalize dependent IHn.
-  simpl.
-  generalize dependent H.
-  simpl.
-Admitted.
+  - intros. destruct m.
+    + reflexivity.
+    + apply O_le_n.
+  - intros. induction m.
+    + inversion H.
+    + apply n_le_m__Sn_le_Sm. apply IHn. inversion H. reflexivity.
+Qed.
 
 (** Hint: The next one may be easiest to prove by induction on [m]. *)
 
@@ -666,7 +664,10 @@ Theorem leb_correct : forall n m,
   n <= m ->
   leb n m = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  induction m as [| m IHm]. trivial.
+  destruct n. intros H. reflexivity.
+  intros. simpl.
+Admitted.
 
 (** Hint: This theorem can easily be proved without using [induction]. *)
 
@@ -1402,8 +1403,13 @@ Theorem reflect_iff : forall P b, reflect P b -> (P <-> b = true).
 Proof.
   intros.
   destruct b.
-  split.
+  constructor. constructor.
+  inversion H.
 Admitted.
+  (**split.
+  inversion H.
+  auto.
+Admitted.*)
   
 (** [] *)
 
@@ -1455,7 +1461,17 @@ Fixpoint count n l :=
 Theorem beq_natP_practice : forall n l,
   count n l = 0 -> ~(In n l).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros. induction l.
+  intros contra. inversion contra.
+  simpl in H.
+  destruct (beq_natP n x).
+  inversion H.
+  apply IHl in H.
+  intros contra. inversion contra.
+  apply H0. rewrite H1. reflexivity.
+  apply H in H1. apply H. omega.
+Qed.
+
 (** [] *)
 
 (** In this small example, this technique gives us only a rather small
@@ -1488,8 +1504,10 @@ Proof.
     [nostutter]. *)
 
 Inductive nostutter {X:Type} : list X -> Prop :=
- (* FILL IN HERE *)
-.
+  | c_nil : nostutter []
+  | c_x : forall x : X, nostutter [x]
+  | c_xxs : forall (x y : X) (p:x <> y) (xs:list X), nostutter (y::xs) -> nostutter (x::y::xs).
+
 (** Make sure each of these tests succeeds, but feel free to change
     the suggested proof (in comments) if the given one doesn't work
     for you.  Your definition might be different from ours and still
@@ -1501,34 +1519,41 @@ Inductive nostutter {X:Type} : list X -> Prop :=
     example with more basic tactics.)  *)
 
 Example test_nostutter_1: nostutter [3;1;4;1;5;6].
-(* FILL IN HERE *) Admitted.
+Proof.
+  constructor. omega.
+  constructor. omega.
+  constructor. omega.
+  constructor. omega.
+  constructor. omega.
+  constructor.
+Qed.
 (* 
   Proof. repeat constructor; apply beq_nat_false_iff; auto.
   Qed.
 *)
 
 Example test_nostutter_2:  nostutter (@nil nat).
-(* FILL IN HERE *) Admitted.
+Proof. constructor. Qed.
 (* 
   Proof. repeat constructor; apply beq_nat_false_iff; auto.
   Qed.
 *)
 
 Example test_nostutter_3:  nostutter [5].
-(* FILL IN HERE *) Admitted.
+Proof. constructor. Qed.
 (* 
   Proof. repeat constructor; apply beq_nat_false; auto. Qed.
 *)
 
 Example test_nostutter_4:      not (nostutter [3;1;1;4]).
-(* FILL IN HERE *) Admitted.
-(* 
-  Proof. intro.
+Proof. 
+  intro.
   repeat match goal with
     h: nostutter _ |- _ => inversion h; clear h; subst
   end.
-  contradiction H1; auto. Qed.
-*)
+  apply p0.
+  reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 4 stars, advanced (filter_challenge)  *)
