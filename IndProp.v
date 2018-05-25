@@ -445,7 +445,20 @@ Inductive ev' : nat -> Prop :=
 
 Theorem ev'_ev : forall n, ev' n <-> ev n.
 Proof.
- (* FILL IN HERE *) Admitted.
+  intros.
+  split.
+  intros.
+  induction H.
+  constructor. constructor. constructor.
+  inversion IHev'1.
+  inversion IHev'2.
+  simpl. constructor.
+  simpl. constructor. assumption.
+  rewrite H2.
+  induction n.
+  destruct m.
+  omega. omega.
+Admitted.
 (** [] *)
 
 (** **** Exercise: 3 stars, advanced, recommended (ev_ev__ev)  *)
@@ -471,7 +484,18 @@ Qed.
 Theorem ev_plus_plus : forall n m p,
   ev (n+m) -> ev (n+p) -> ev (m+p).
 Proof.
-  (* FILL IN HERE *) Admitted.
+intros n m p H.
+  apply ev_ev__ev.
+  rewrite plus_comm.
+  rewrite plus_swap.
+  rewrite <- plus_assoc.
+  rewrite plus_assoc.
+  apply ev_sum. apply H.
+  rewrite <- double_plus.
+  induction p. simpl. constructor.
+  simpl. constructor.
+  assumption.
+Qed.
 (** [] *)
 
 (* ################################################################# *)
@@ -1586,7 +1610,12 @@ Qed.
     to be a merge of two others.  Do this with an inductive relation,
     not a [Fixpoint].)  *)
 
-(* FILL IN HERE *)
+Inductive is_merge_of {X: Type} : list X -> list X -> list X -> Prop :=
+  | c_lnil: is_merge_of [] [] []
+  | c_lx: forall (x : X) (xs ys zs : list X),
+                is_merge_of xs ys zs -> is_merge_of (x :: xs) ys (x :: zs)
+  | c_ly: forall (y : X) (xs ys zs : list X),
+                is_merge_of xs ys zs -> is_merge_of xs (y :: ys) (y :: zs).
 (** [] *)
 
 (** **** Exercise: 5 stars, advanced, optional (filter_challenge_2)  *)

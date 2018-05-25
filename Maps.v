@@ -215,7 +215,9 @@ Proof. reflexivity. Qed.
 
 Lemma t_apply_empty:  forall (A:Type) (x: string) (v: A), { --> v } x = v.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  auto.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, optional (t_update_eq)  *)
@@ -226,7 +228,11 @@ Proof.
 Lemma t_update_eq : forall A (m: total_map A) x v,
   (m & {x --> v}) x = v.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  unfold t_update.
+  rewrite <- beq_string_refl.
+  auto.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, optional (t_update_neq)  *)
@@ -239,7 +245,12 @@ Theorem t_update_neq : forall (X:Type) v x1 x2
   x1 <> x2 ->
   (m & {x1 --> v}) x2 = m x2.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  unfold t_update.
+  rewrite <- beq_string_false_iff in H.
+  rewrite -> H.
+  auto.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, optional (t_update_shadow)  *)
@@ -252,7 +263,14 @@ Proof.
 Lemma t_update_shadow : forall A (m: total_map A) v1 v2 x,
     m & {x --> v1 ; x --> v2} = m & {x --> v2}.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  unfold t_update.
+  apply functional_extensionality.
+  intros x0.
+  destruct (beq_string x x0).
+  auto.
+  auto.
+Qed.
 (** [] *)
 
 (** For the final two lemmas about total maps, it's convenient to use
@@ -266,7 +284,11 @@ Proof.
 
 Lemma beq_stringP : forall x y, reflect (x = y) (beq_string x y).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  apply iff_reflect.
+  rewrite beq_string_true_iff. 
+  reflexivity.
+Qed.
 (** [] *)
 
 (** Now, given [string]s [x1] and [x2], we can use the [destruct (beq_stringP
@@ -283,7 +305,12 @@ Proof.
 Theorem t_update_same : forall X x (m : total_map X),
     m & { x --> m x } = m.
   Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  unfold t_update.
+  apply functional_extensionality.
+  intros x0. destruct (beq_stringP x x0).
+  rewrite -> e. reflexivity. reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 3 stars, recommended (t_update_permute)  *)
@@ -297,7 +324,16 @@ Theorem t_update_permute : forall (X:Type) v1 v2 x1 x2
   m & { x2 --> v2 ; x1 --> v1 }
   =  m & { x1 --> v1 ; x2 --> v2 }.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  unfold t_update.
+  apply functional_extensionality.
+  intros x.
+  destruct (beq_stringP x1 x).
+  destruct (beq_stringP x2 x).
+  unfold not in H. rewrite e in H. rewrite e0 in H. exfalso. apply H. auto.
+  auto.
+  auto.
+Qed.
 (** [] *)
 
 (* ################################################################# *)
