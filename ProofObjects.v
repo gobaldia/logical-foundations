@@ -414,12 +414,7 @@ End Or.
 (** Try to write down an explicit proof object for [or_commut] (without
     using [Print] to peek at the ones we already defined!). *)
 
-Definition or_comm : forall P Q, P \/ Q -> Q \/ P :=
-  fun P Q (PorQ: P \/ Q) =>
-    match PorQ with
-      | or_introl HP => or_intror HP
-      | or_intror HQ => or_introl HQ
-    end.
+Definition or_comm : forall P Q, P \/ Q -> Q \/ P. Admitted.
 (** [] *)
 
 (** ** Existential Quantification
