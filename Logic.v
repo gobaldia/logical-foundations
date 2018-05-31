@@ -1124,7 +1124,7 @@ Example function_equality_ex2 :
   (fun x => plus x 1) = (fun x => plus 1 x).
 Proof.
    (* Stuck *)
-Abort.
+   Abort.
 
 (** However, we can add functional extensionality to Coq's core logic
     using the [Axiom] command. *)
