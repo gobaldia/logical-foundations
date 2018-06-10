@@ -3,7 +3,7 @@
 (** With the Curry-Howard correspondence and its realization in Coq in
     mind, we can now take a deeper look at induction principles. *)
 
-Set Warnings "-notation-overridden,-parsing".
+(**Set Warnings "-notation-overridden,-parsing".*)
 Require Export ProofObjects.
 
 (* ################################################################# *)
@@ -62,7 +62,9 @@ Proof.
 Theorem plus_one_r' : forall n:nat,
   n + 1 = S n.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  omega.
+Qed.
 (** [] *)
 
 (** Coq generates induction principles for every datatype defined with
@@ -175,8 +177,8 @@ Inductive byntree : Type :=
     Give an [Inductive] definition of [ExSet]: *)
 
 Inductive ExSet : Type :=
-  (* FILL IN HERE *)
-.
+  | c1 : bool -> ExSet
+  | c2 : nat -> ExSet -> ExSet.
 (** [] *)
 
 (* ################################################################# *)
@@ -405,7 +407,40 @@ Proof.
     induction, and state the theorem and proof in terms of this
     defined proposition.  *)
 
-(* FILL IN HERE *)
+Definition plus_comm_rew : nat -> nat -> Prop := 
+  fun (n m : nat) => n + m = m + n.
+
+Theorem plus_comm_rew_theorem : forall (n m : nat),
+    plus_comm_rew n m.
+Proof.
+  intros n.
+  apply nat_ind.
+  unfold plus_comm_rew.
+  auto.
+  intros. 
+  unfold plus_comm_rew. 
+  unfold plus_comm_rew in H.
+  simpl.
+  rewrite <- H.
+  rewrite <- plus_n_Sm.
+  reflexivity.
+Qed.
+
+Definition plus_assoc_rew : nat -> nat -> nat -> Prop :=
+  fun (n m p: nat) => n + (m + p) = (n + m) + p.
+
+Theorem plus_assoc_rew_theorem : forall (n m p : nat),
+  plus_assoc_rew n m p.
+Proof.
+  intros.
+  apply nat_ind.
+  unfold plus_assoc_rew.
+  apply plus_assoc'.
+  intros.
+  unfold plus_assoc_rew.
+  unfold plus_assoc_rew in H.
+  omega.
+Qed.
 (** [] *)
 
 (* ################################################################# *)
