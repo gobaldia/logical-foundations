@@ -21,7 +21,7 @@
     equivalence_ and introduce _Hoare Logic_, a widely used logic for
     reasoning about imperative programs. *)
 
-Set Warnings "-notation-overridden,-parsing".
+(** Set Warnings "-notation-overridden,-parsing". *)
 Require Import Coq.Bool.Bool.
 Require Import Coq.Arith.Arith.
 Require Import Coq.Arith.EqNat.
@@ -441,13 +441,28 @@ Qed.
     it is sound.  Use the tacticals we've just seen to make the proof
     as elegant as possible. *)
 
-Fixpoint optimize_0plus_b (b : bexp) : bexp
-  (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
+Fixpoint optimize_0plus_b (b : bexp) : bexp :=
+  match b with
+  | BTrue => BTrue
+  | BFalse => BFalse
+  | BEq b1 b2 => BEq (optimize_0plus b1) (optimize_0plus b2)
+  | BLe b1 b2 => BLe (optimize_0plus b1) (optimize_0plus b2)
+  | BNot b => BNot (optimize_0plus_b b)
+  | BAnd b1 b2 => BAnd (optimize_0plus_b b1) (optimize_0plus_b b2)
+  end.
 
 Theorem optimize_0plus_b_sound : forall b,
   beval (optimize_0plus_b b) = beval b.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  induction b.
+  reflexivity.
+  reflexivity.
+  simpl. rewrite optimize_0plus_sound. rewrite optimize_0plus_sound. reflexivity.
+  simpl. rewrite optimize_0plus_sound. rewrite optimize_0plus_sound. reflexivity.
+  simpl. rewrite IHb. reflexivity.
+  simpl. rewrite IHb1. rewrite IHb2. reflexivity.
+Qed.
 (** [] *)
 
 (** **** Exercise: 4 stars, optional (optimizer)  *)
@@ -459,8 +474,20 @@ Proof.
     optimization and prove it correct -- and build up to something
     more interesting incrementially.)
 
-(* FILL IN HERE *)
 *)
+Fixpoint optimize_1mult (a: aexp) : aexp :=
+  match a with
+  | ANum n =>
+      ANum n
+  | APlus e1 e2 =>
+      APlus (optimize_1mult e1) (optimize_1mult e2)
+  | AMinus e1 e2 =>
+      AMinus (optimize_1mult e1) (optimize_1mult e2)
+  | AMult (ANum 1) e =>
+      optimize_1mult e
+  | AMult e1 e2 =>
+      AMult (optimize_1mult e1) (optimize_1mult e2)
+  end.
 (** [] *)
 
 (* ================================================================= *)
@@ -751,13 +778,34 @@ Qed.
     [aevalR], and prove that it is equivalent to [beval].*)
 
 Inductive bevalR: bexp -> bool -> Prop :=
-(* FILL IN HERE *)
-.
+ | E_BTrue : bevalR (BTrue) true
+ | E_BFalse : bevalR (BFalse) false
+ | E_BEq : forall (e1 e2: aexp) (n1 n2 : nat),
+     aevalR e1 n1 ->
+     aevalR e2 n2 ->
+     bevalR (BEq e1 e2) (beq_nat n1 n2)
+ | E_BLe : forall (e1 e2 : aexp) (n1 n2 : nat),
+     aevalR e1 n1 ->
+     aevalR e2 n2 ->
+     bevalR (BLe e1 e2) (leb n1 n2)
+ | E_BNot : forall (e1 : bexp) (b : bool),
+     bevalR e1 b ->
+     bevalR (BNot e1) (negb b)
+ | E_BAnd : forall (e1 e2 : bexp) (b1 b2 : bool),
+     bevalR e1 b1 ->
+     bevalR e2 b2 ->
+     bevalR (BAnd e1 e2) (andb b1 b2).
 
 Lemma beval_iff_bevalR : forall b bv,
   bevalR b bv <-> beval b = bv.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  split.
+  intros.
+  induction H.
+  constructor.
+  constructor.
+  simpl.
+Admitted.
 (** [] *)
 
 End AExp.
