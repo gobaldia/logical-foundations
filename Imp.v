@@ -32,6 +32,8 @@ Import ListNotations.
 
 Require Import Maps.
 
+(** Require String. Open Scope string_scope. *)
+
 (* ################################################################# *)
 (** * Arithmetic and Boolean Expressions *)
 
@@ -1071,6 +1073,7 @@ Notation "{ a --> x ; b --> y ; c --> z ; d --> t ; e --> u }" :=
 Notation "{ a --> x ; b --> y ; c --> z ; d --> t ; e --> u ; f --> v }" :=
   (t_update ({ a --> x ; b --> y ; c --> z ; d --> t ; e --> u }) f v) (at level 0).
 
+
 Example aexp1 :
   aeval { X --> 5 } (3 + (X * 2))
   = 13.
@@ -1373,7 +1376,7 @@ Example ceval_example2:
   (X ::= 0;; Y ::= 1;; Z ::= 2) / { --> 0 } \\
   { X --> 0 ; Y --> 1 ; Z --> 2 }.
 Proof.
-  (* FILL IN HERE *) Admitted.
+Admitted.
 (** [] *)
 
 (** **** Exercise: 3 stars, optional (pup_to_n)  *)
