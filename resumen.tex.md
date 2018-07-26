@@ -165,3 +165,69 @@ Proof.
   - reflexivity.
   - reflexivity. Qed.
 ```
+
+## Induction
+Coq provee la táctica `induction` para realizar demostraciones por inducción.
+
+Para demostrar que `n = n+0` es necesario recurrir a inducción, tal como se muestra a continuación.
+
+```coq
+Theorem plus_n_O : ∀ n:nat, n = n + 0.
+Proof.
+  intros n. induction n as [| n' IHn'].
+  - (* n = 0 *) reflexivity.
+  - (* n = S n' *) simpl. rewrite <- IHn'. reflexivity. Qed.
+```
+
+## Lists
+Las listas se definen en Coq como un tipo inductivo, de forma similar a como se hace en Haskell. Es decir, una lista podría ser o bien la lista vacía o bien el par formado por un elemento y una lista.
+
+El tipo particular lista de naturales se define como sigue:
+
+```coq
+Inductive natlist : Type :=
+  | nil : natlist
+  | cons : nat → natlist → natlist.
+```
+
+Una lista se define, por ejemplo, como `Definition mylist := cons 1 (cons 2 (cons 3 nil)).`.
+
+A continuación se definen, a modo de ejemplo, algunas de las funciones ya conocidas de otros cursos, como son `lenght`, `append`, `head` y `tail`.
+
+```coq
+Fixpoint length (l : natlist) : nat :=
+	match l with
+	| nil -> 0
+	| x :: xs -> 1 + length (xs)
+	end.
+```
+
+```coq
+Fixpoint append (l1 l2 : natlist) : natlist :=
+	match l1 with
+	| nil -> l2
+	| x :: xs -> x :: (append xs l2)
+	end.
+```
+
+```coq
+Fixpoint head (l : natlist) : nat :=
+	match l with
+	| nil -> default
+	| x :: xs -> x
+	end.
+```
+
+```coq
+Fixpoint tail (l : natlist) : natlist :=
+	match l with
+	| nil -> nil
+	| x :: xs -> xs
+	end.
+```
+
+### Inducción en listas
+El esquema de demostraciones por inducción sobre listas de naturales es el siguiente:
+
+1) Demostramos el caso base, es decir la validez de la proposición para la lista vacía (`nil`).
+2) Suponiendo cierta la proposición para una lista `l`, demostramos su validez cuando `l` es `cons n l'`.
