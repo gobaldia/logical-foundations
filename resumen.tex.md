@@ -41,13 +41,13 @@ La siguiente función retorna el día siguiente al que se recibe por parámetro.
 ```coq
 Definition next_weekday (d:day) : day :=
   match d with
-  | monday ⇒ tuesday
-  | tuesday ⇒ wednesday
-  | wednesday ⇒ thursday
-  | thursday ⇒ friday
-  | friday ⇒ monday
-  | saturday ⇒ monday
-  | sunday ⇒ monday
+  | monday -> tuesday
+  | tuesday -> wednesday
+  | wednesday -> thursday
+  | thursday -> friday
+  | friday -> monday
+  | saturday -> monday
+  | sunday -> monday
   end.
 ```
 
@@ -55,24 +55,24 @@ La negación, conjunción y disyunción booleana se definen como sigue:
 ```coq
 Definition negb (b:bool) : bool :=
   match b with
-  | true ⇒ false
-  | false ⇒ true
+  | true -> false
+  | false -> true
   end.
 ```
 
 ```coq
 Definition andb (b1:bool) (b2:bool) : bool :=
   match b1 with
-  | true ⇒ b2
-  | false ⇒ false
+  | true -> b2
+  | false -> false
   end.
 ```
 
 ```coq
 Definition orb (b1:bool) (b2:bool) : bool :=
   match b1 with
-  | true ⇒ true
-  | false ⇒ b2
+  | true -> true
+  | false -> b2
   end.
 ```
 
@@ -83,9 +83,9 @@ La siguiente funcion decide si un natural es par:
 ```coq
 Fixpoint evenb (n:nat) : bool :=
   match n with
-  | O ⇒ true
-  | S O ⇒ false
-  | S (S n') ⇒ evenb n'
+  | O -> true
+  | S O -> false
+  | S (S n') -> evenb n'
   end.
 ```
 
@@ -93,25 +93,25 @@ La suma, multiplicación y resta de naturales se podrían definir como sigue:
 ```coq
 Fixpoint plus (n : nat) (m : nat) : nat :=
   match n with
-    | O ⇒ m
-    | S n' ⇒ S (plus n' m)
+    | O -> m
+    | S n' -> S (plus n' m)
   end.
 ```
 
 ```coq
 Fixpoint mult (n m : nat) : nat :=
   match n with
-    | O ⇒ O
-    | S n' ⇒ plus m (mult n' m)
+    | O -> O
+    | S n' -> plus m (mult n' m)
   end.
 ```
 
 ```coq
 Fixpoint minus (n m:nat) : nat :=
   match n, m with
-  | O , _ ⇒ O
-  | S _ , O ⇒ n
-  | S n', S m' ⇒ minus n' m'
+  | O , _ -> O
+  | S _ , O -> n
+  | S n', S m' -> minus n' m'
   end.
 ```
 
