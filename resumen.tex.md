@@ -28,7 +28,7 @@ Inductive bool : Type :=
 ```coq
 Inductive nat : Type :=
   | O : nat
-  | S : nat → nat.
+  | S : nat -> nat.
 ```
 
 ### Definición de funciones
@@ -119,19 +119,19 @@ Fixpoint minus (n m:nat) : nat :=
 A continuación se muestran ejemplos de pruebas por simplificación.
 
 ```coq
-Theorem plus_O_n : ∀ n : nat, 0 + n = n.
+Theorem plus_O_n : forall n : nat, 0 + n = n.
 Proof.
   intros n. simpl. reflexivity. Qed.
 ```
 
 ```coq
-Theorem plus_1_l : ∀ n:nat, 1 + n = S n.
+Theorem plus_1_l : forall n:nat, 1 + n = S n.
 Proof.
   intros n. reflexivity. Qed.
 ```
 
 ```coq
-Theorem mult_0_l : ∀ n:nat, 0 * n = 0.
+Theorem mult_0_l : forall n:nat, 0 * n = 0.
 Proof.
   intros n. reflexivity. Qed.
 ```
@@ -140,8 +140,8 @@ Proof.
 Para demostrar teoremas más complejos Coq provee la táctica `rewrite`. Lo que hace es reemplazar el contenido de un _goal_ por una expresión equivalente que se encuentre en las _hipótesis_. En el ejemplo siguiente puede verse ésto:
 
 ```coq
-Theorem plus_id_example : ∀ n m:nat,
-  n = m →
+Theorem plus_id_example : forall n m:nat,
+  n = m ->
   n + n = m + m.
 Proof.
   (* move both quantifiers into the context: *)
@@ -149,7 +149,7 @@ Proof.
   (* move the hypothesis into the context: *)
   intros H.
   (* rewrite the goal using the hypothesis: *)
-  rewrite → H.
+  rewrite -> H.
   reflexivity. Qed.
 ```
 
@@ -158,7 +158,7 @@ Cuando tenemos que hacer casos en las pruebas debemos utilizar la táctica `dest
 
 Por ejemplo, si quisiéramos probar que `1` es distinto de `0`, deberíamos hacer casos en `n`, contemplando cuando `n=0` y cuando `n=S n'`, tal cual se muestra en el siguiente fragmento de código.
 ```coq
-Theorem plus_1_neq_0 : ∀ n : nat,
+Theorem plus_1_neq_0 : forall n : nat,
   beq_nat (n + 1) 0 = false.
 Proof.
   intros n. destruct n as [| n'].
