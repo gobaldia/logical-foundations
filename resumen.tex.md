@@ -259,7 +259,7 @@ Fixpoint nth_error (l:natlist) (n:nat) : natoption :=
 
 ### Listas polimórficas
 
-En el capítulo [Lists](#lists) se mostró como crear listas de un tipo específico (el ejemplo concreto fue de naturales). Por lo general, nos va a interesar poder definir listas "genéricas", es decir listas que puedan ser de cualquier tipo. Es aquí que entra en juego el tema del polimorfismo. El tipo lista polimórfica se define como sigue:
+En el capítulo [Lists](#lists) se mostró cómo crear listas de un tipo específico (el ejemplo concreto fue de naturales). Por lo general, nos va a interesar poder definir listas "genéricas", es decir listas que puedan ser de cualquier tipo. Es aquí que entra en juego el tema del polimorfismo. El tipo lista polimórfica se define como sigue:
 
 ```coq
 Inductive list (X:Type) : Type :=
@@ -269,4 +269,4 @@ Inductive list (X:Type) : Type :=
 
 Podemos ver a `list` como una _función_ que va de `Type` en `Type`. Para algún tipo `X`, el tipo `list X` es un conjunto inductivamente definido de listas cuyos elementos son de tipo `X`.
 
-El parámetro `X` funciona como un parámetro de los constructores `nil` y `cons`, es decir `nil` y `cons` son constructores polimórficos. A modo de ejemplo, `nil nat` va a construir una lista de naturales vacía. Por su parte, si tipeamos `cons nat 3 (nil nat)` obtendremos una lista de naturales que solamente contendrá al elemento `3`.
+El parámetro `X` funciona como un parámetro de los constructores `nil` y `cons`, es decir `nil` y `cons` son constructores polimórficos. A modo de ejemplo, ```coq nil nat``` va a construir una lista de naturales vacía. Por su parte, si tipeamos `cons nat 3 (nil nat)` obtendremos una lista de naturales que solamente contendrá al elemento `3`.
