@@ -259,4 +259,10 @@ Fixpoint nth_error (l:natlist) (n:nat) : natoption :=
 
 ### Listas polimórficas
 
-En el capítulo [Lists](#lists)
+En el capítulo [Lists](#lists) se mostró como crear listas de un tipo específico (el ejemplo concreto fue de naturales). Por lo general, nos va a interesar poder definir listas "genéricas", es decir listas que puedan ser de cualquier tipo. Es aquí que entra en juego el tema del polimorfismo. El tipo lista polimórfica se define como sigue:
+
+```coq
+Inductive list (X:Type) : Type :=
+  | nil : list X
+  | cons : X → list X → list X.
+```
