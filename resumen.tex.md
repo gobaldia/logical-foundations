@@ -231,3 +231,32 @@ El esquema de demostraciones por inducción sobre listas de naturales es el sigu
 
 1) Demostramos el caso base, es decir la validez de la proposición para la lista vacía (`nil`).
 2) Suponiendo cierta la proposición para una lista `l`, demostramos su validez cuando `l` es `cons n l'`.
+
+### Options
+Para evitar devolver valores por defecto cuando la función que implementamos no tiene qué devolver, podemos utilizar los `options`.
+
+Siguiendo este enfoque podemos definir el tipo `natoption`, tal como se puede ver a continuación.
+
+```coq
+Inductive natoption : Type :=
+  | Some : nat -> natoption
+  | None : natoption.
+```
+
+Si ahora quisiéramos implementar una función que devuelva el enésimo elemento de una lista, deberíamos hacer algo así:
+```coq
+Fixpoint nth_error (l:natlist) (n:nat) : natoption :=
+  match l with
+  | nil ⇒ None
+  | a :: l' ⇒ match beq_nat n O with
+               | true ⇒ Some a
+               | false ⇒ nth_error l' (pred n)
+               end
+  end.
+```
+
+## Poly
+
+### Listas polimórficas
+
+En el capítulo [Lists](##Lists)
