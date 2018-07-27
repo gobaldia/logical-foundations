@@ -266,3 +266,7 @@ Inductive list (X:Type) : Type :=
   | nil : list X
   | cons : X → list X → list X.
 ```
+
+Podemos ver a `list` como una _función_ que va de `Type` en `Type`. Para algún tipo `X`, el tipo `list X` es un conjunto inductivamente definido de listas cuyos elementos son de tipo `X`.
+
+El parámetro `X` funciona como un parámetro de los constructores `nil` y `cons`, es decir `nil` y `cons` son constructores polimórficos. A modo de ejemplo, `nil nat` va a construir una lista de naturales vacía. Por su parte, si tipeamos `cons nat 3 (nil nat)` obtendremos una lista de naturales que solamente contendrá al elemento `3`.
