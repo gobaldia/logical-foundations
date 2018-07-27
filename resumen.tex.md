@@ -259,4 +259,4 @@ Fixpoint nth_error (l:natlist) (n:nat) : natoption :=
 
 ### Listas polimórficas
 
-En el capítulo [Lists](##Lists)
+En el capítulo [Lists](#lists)
