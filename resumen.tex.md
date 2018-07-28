@@ -41,13 +41,13 @@ La siguiente función retorna el día siguiente al que se recibe por parámetro.
 ```coq
 Definition next_weekday (d:day) : day :=
   match d with
-  | monday -> tuesday
-  | tuesday -> wednesday
-  | wednesday -> thursday
-  | thursday -> friday
-  | friday -> monday
-  | saturday -> monday
-  | sunday -> monday
+  | monday => tuesday
+  | tuesday => wednesday
+  | wednesday => thursday
+  | thursday => friday
+  | friday => monday
+  | saturday => monday
+  | sunday => monday
   end.
 ```
 
@@ -55,24 +55,24 @@ La negación, conjunción y disyunción booleana se definen como sigue:
 ```coq
 Definition negb (b:bool) : bool :=
   match b with
-  | true -> false
-  | false -> true
+  | true => false
+  | false => true
   end.
 ```
 
 ```coq
 Definition andb (b1:bool) (b2:bool) : bool :=
   match b1 with
-  | true -> b2
-  | false -> false
+  | true => b2
+  | false => false
   end.
 ```
 
 ```coq
 Definition orb (b1:bool) (b2:bool) : bool :=
   match b1 with
-  | true -> true
-  | false -> b2
+  | true => true
+  | false => b2
   end.
 ```
 
@@ -83,9 +83,9 @@ La siguiente funcion decide si un natural es par:
 ```coq
 Fixpoint evenb (n:nat) : bool :=
   match n with
-  | O -> true
-  | S O -> false
-  | S (S n') -> evenb n'
+  | O => true
+  | S O => false
+  | S (S n') => evenb n'
   end.
 ```
 
@@ -93,25 +93,25 @@ La suma, multiplicación y resta de naturales se podrían definir como sigue:
 ```coq
 Fixpoint plus (n : nat) (m : nat) : nat :=
   match n with
-    | O -> m
-    | S n' -> S (plus n' m)
+    | O => m
+    | S n' => S (plus n' m)
   end.
 ```
 
 ```coq
 Fixpoint mult (n m : nat) : nat :=
   match n with
-    | O -> O
-    | S n' -> plus m (mult n' m)
+    | O => O
+    | S n' => plus m (mult n' m)
   end.
 ```
 
 ```coq
 Fixpoint minus (n m:nat) : nat :=
   match n, m with
-  | O , _ -> O
-  | S _ , O -> n
-  | S n', S m' -> minus n' m'
+  | O , _ => O
+  | S _ , O => n
+  | S n', S m' => minus n' m'
   end.
 ```
 
@@ -197,32 +197,32 @@ A continuación se definen, a modo de ejemplo, algunas de las funciones ya conoc
 ```coq
 Fixpoint length (l : natlist) : nat :=
 	match l with
-	| nil -> 0
-	| x :: xs -> 1 + length (xs)
+	| nil => 0
+	| x :: xs => 1 + length (xs)
 	end.
 ```
 
 ```coq
 Fixpoint append (l1 l2 : natlist) : natlist :=
 	match l1 with
-	| nil -> l2
-	| x :: xs -> x :: (append xs l2)
+	| nil => l2
+	| x :: xs => x :: (append xs l2)
 	end.
 ```
 
 ```coq
 Fixpoint head (l : natlist) : nat :=
 	match l with
-	| nil -> default
-	| x :: xs -> x
+	| nil => default
+	| x :: xs => x
 	end.
 ```
 
 ```coq
 Fixpoint tail (l : natlist) : natlist :=
 	match l with
-	| nil -> nil
-	| x :: xs -> xs
+	| nil => nil
+	| x :: xs => xs
 	end.
 ```
 
@@ -247,10 +247,10 @@ Si ahora quisiéramos implementar una función que devuelva el enésimo elemento
 ```coq
 Fixpoint nth_error (l:natlist) (n:nat) : natoption :=
   match l with
-  | nil ⇒ None
+  | nil => None
   | a :: l' ⇒ match beq_nat n O with
-               | true ⇒ Some a
-               | false ⇒ nth_error l' (pred n)
+               | true => Some a
+               | false => nth_error l' (pred n)
                end
   end.
 ```
@@ -264,9 +264,89 @@ En el capítulo [Lists](#lists) se mostró cómo crear listas de un tipo especí
 ```coq
 Inductive list (X:Type) : Type :=
   | nil : list X
-  | cons : X → list X → list X.
+  | cons : X -> list X -> list X.
 ```
 
 Podemos ver a `list` como una _función_ que va de `Type` en `Type`. Para algún tipo `X`, el tipo `list X` es un conjunto inductivamente definido de listas cuyos elementos son de tipo `X`.
 
-El parámetro `X` funciona como un parámetro de los constructores `nil` y `cons`, es decir `nil` y `cons` son constructores polimórficos. A modo de ejemplo, ```coq nil nat``` va a construir una lista de naturales vacía. Por su parte, si tipeamos `cons nat 3 (nil nat)` obtendremos una lista de naturales que solamente contendrá al elemento `3`.
+El parámetro `X` funciona como un parámetro de los constructores `nil` y `cons`, es decir `nil` y `cons` son constructores polimórficos. A modo de ejemplo, `nil nat` va a construir una lista de naturales vacía. Por su parte, si tipeamos `cons nat 3 (nil nat)` obtendremos una lista de naturales que solamente contendrá al elemento `3`.
+
+Las funciones definidas anteriormente para listas de naturales (`lenght`, `append`, `head` y `tail`) pueden ser definidas para listas polimórficas como sigue:
+
+```coq
+Fixpoint length {X : Type} (l : list X) : nat :=
+  match l with
+  | nil => 0
+  | cons _ l' => S (length l')
+  end.
+```
+
+```coq
+Fixpoint append {X : Type} (l1 l2 : list X) : (list X) :=
+  match l1 with
+  | nil => l2
+  | cons x xs => cons x (append xs l2)
+  end.
+```
+
+```coq
+Fixpoint head {X : Type} (l : list X) : X :=
+  match l with
+  | nil => default
+  | cons x xs => x
+  end.
+```
+
+```coq
+Fixpoint tail {X : Type} (l : list X) : (list X) :=
+  match l with
+  | nil => nil
+  | cons x xs => cons xs
+  end.
+```
+
+### Options polimórficos
+El `option` polimórfico se define como sigue:
+
+```coq
+Inductive option (X:Type) : Type :=
+  | Some : X -> option X
+  | None : option X.
+
+Arguments Some {X} _.
+Arguments None {X}.
+```
+
+### Funciones como datos
+#### Funciones de orden superior
+Son funciones que pueden recibir o devolver funciones.
+
+Un ejemplo de función de orden superior es `filter`, debido a que recibe como parámetro una función (el _predicado_ para el cual deben valer los valores que se retornan). La forma de definirla en Coq es la siguiente:
+
+```coq
+Fixpoint filter {X:Type} (test: X→bool) (l:list X)
+                : (list X) :=
+  match l with
+  | [] => []
+  | h :: t => if test h then h :: (filter test t)
+                        else filter test t
+  end.
+```
+
+#### Funciones anónimas
+Las funciones anónimas son aquellas que no reciben un nombre, es decir que se definen dentro de una función y viven dentro de dicha función. Un ejemplo podría ser si queremos _filtrar_ todos las sublistas de largo 1, sin necesidad de definir la función `lenght_1`. En ese caso, nos quedaría algo así:
+
+```coq
+Example test_filter2:
+    filter length_is_1
+           [ [1; 2]; [3]; [4]; [5;6;7]; []; [8] ]
+  = [ [3]; [4]; [8] ].
+Proof. reflexivity. Qed.
+```
+
+Por su parte, la siguiente función retorna una función. Lo que hace es recibir un valor `x` y retornar una función que devuelve ese valor `x`.
+
+```coq
+Definition constfun {X: Type} (x: X) : nat→X :=
+  fun (k:nat) ⇒ x.
+```
