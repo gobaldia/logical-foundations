@@ -348,5 +348,28 @@ Por su parte, la siguiente función retorna una función. Lo que hace es recibir
 
 ```coq
 Definition constfun {X: Type} (x: X) : nat→X :=
-  fun (k:nat) ⇒ x.
+  fun (k:nat) => x.
+```
+
+## Tactics
+
+### Apply
+La táctica `apply` se usa en casos donde el _goal_ a ser demostrado es exactamente igual a algunas de las hipótesis del contexto o a algo ya demostrado. Lo que se hace con `apply` se podría también hacer con `rewrite`.
+
+### Apply ... With ...
+La táctica `apply ... with ...` es una variación de `apply` que implica un cambio de variable.
+
+### Inversion
+Para aprovechar el hecho de que los constructores de un tipo inductivo son _inyectivos_ y disjuntos entre sí, Coq provee la táctica `inversion`. Si `H` es una hipótesis, al escribir `inversion H` Coq va a generar todas las ecuaciones que pueda inferir de `H` como hipótesis adicionales, reemplazado las variables en el _goal_ a medida que avanza.
+
+Un ejemplo de uso de _inversion_ es el siguiente:
+```coq
+Theorem S_injective : ∀ (n m : nat),
+  S n = S m →
+  n = m.
+Proof.
+  intros n m H.
+  inversion H.
+  reflexivity.
+Qed.
 ```
