@@ -402,24 +402,24 @@ Proof.
 ### Unfold
 La táctica `unfold` nos permite _"abrir"_ una definición.
 
-> **Resumen**
-> A continuación se muestra un resumen de las tácticas vistas hasta ahora.
-> * `intros`: move hypotheses/variables from goal to context
-> * `reflexivity`: finish the proof (when the goal looks like e = e)
-> * `apply`: prove goal using a hypothesis, lemma, or constructor
-> * `apply... in H`: apply a hypothesis, lemma, or constructor to a hypothesis in the context (forward reasoning)
-> * `apply... with...`: explicitly specify values for variables that cannot be determined by pattern matching
-> * `simpl`: simplify computations in the goal
-> * `simpl in H`: ... or a hypothesis
-> * `rewrite`: use an equality hypothesis (or lemma) to rewrite the goal
-> * `rewrite ... in H`: ... or a hypothesis
-> * `symmetry`: changes a goal of the form t=u into u=t
-> * `symmetry in H`: changes a hypothesis of the form t=u into u=t
-> * `unfold`: replace a defined constant by its right-hand side in the goal
-> * `unfold... in H`: ... or a hypothesis
-> * `destruct... as...`: case analysis on values of inductively defined types
-> * `destruct... eqn:...`: specify the name of an equation to be added to the context, recording the result of the case analysis
-> * `induction... as...`: induction on values of inductively defined types
-> * `inversion`: reason by injectivity and distinctness of constructors
-> * `assert (H: e) (or assert (e) as H)`: introduce a "local lemma" e and call it H
-> * `generalize dependent x`: move the variable x (and anything else that depends on it) from the context back to an explicit hypothesis in the goal formula
+## Resumen
+A continuación se muestra un resumen de las tácticas vistas hasta ahora.
+* `intros`: trae hipótesis o variables del _goal_ al contexto
+* `reflexivity`: termina la prueba (cuando el _goal_ es del tipo e = e)
+* `apply`: prueba el goal utilizando una hipótesis, un lema o un constructor
+* `apply... in H`: aplica un hipótesis, lema o constructor a una hipótesis en el contexto (_forward reasoning_)
+* `apply... with...`: especifica explícitamente valores para variables que no pueden determinarse por _pattern matching_
+* `simpl`: simplifica en el _goal_
+* `simpl in H`: simplifica en una hipótesis
+* `rewrite`: usa una igualdad de una hipótesis o un lema para reescribir el _goal_
+* `rewrite ... in H`: usa una igualdad de una hipótesis o un lema para reescribir una hipótesis
+* `symmetry`: cambia el _goal_ de la forma `t=u` a `u=t`
+* `symmetry in H`: cambia una hipótesis de la forma `t=u` a `u=t`
+* `unfold`: abre una definición en el _goal_
+* `unfold... in H`: abre una definición en una hipótesis
+* `destruct... as...`: hace casos sobre valores de tipos definidos inductivamente
+* `destruct... eqn:...`: especifica el nombre de la ecuación a ser agregada al contexto, guardando el resultado de hacer casos
+* `induction... as...`: hace inducción sobre valores de tipos definidos inductivamente
+* `inversion`: razona sobre el hecho de que los constructores de un tipo inductivo son _inyectivos_ y disjuntos entre sí
+* `assert (H: e) (or assert (e) as H)`: introduce un _lema local_ `e` y lo llama `H`
+* `generalize dependent x`: mueve una variable `x` (y todo lo que dependa de ella) del contexto a una hipótesis explícita en el _goal_
