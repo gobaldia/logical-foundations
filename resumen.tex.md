@@ -360,7 +360,7 @@ La táctica `apply` se usa en casos donde el _goal_ a ser demostrado es exactame
 La táctica `apply ... with ...` es una variación de `apply` que implica un cambio de variable.
 
 ### Inversion
-Para aprovechar el hecho de que los constructores de un tipo inductivo son _inyectivos_ y disjuntos entre sí, Coq provee la táctica `inversion`. Si `H` es una hipótesis, al escribir `inversion H` Coq va a generar todas las ecuaciones que pueda inferir de `H` como hipótesis adicionales, reemplazado las variables en el _goal_ a medida que avanza.
+Para aprovechar el hecho de que los constructores de un tipo inductivo son _inyectivos_ y _disjuntos entre sí_, Coq provee la táctica `inversion`. Si `H` es una hipótesis, al escribir `inversion H` Coq va a generar todas las ecuaciones que pueda inferir de `H` como hipótesis adicionales, reemplazado las variables en el _goal_ a medida que avanza.
 
 Un ejemplo de uso de _inversion_ es el siguiente:
 ```coq
@@ -402,7 +402,7 @@ Proof.
 ### Unfold
 La táctica `unfold` nos permite _"abrir"_ una definición.
 
-## Resumen
+### Resumen
 A continuación se muestra un resumen de las tácticas vistas hasta ahora.
 * `intros`: trae hipótesis o variables del _goal_ al contexto
 * `reflexivity`: termina la prueba (cuando el _goal_ es del tipo e = e)
@@ -420,6 +420,6 @@ A continuación se muestra un resumen de las tácticas vistas hasta ahora.
 * `destruct... as...`: hace casos sobre valores de tipos definidos inductivamente
 * `destruct... eqn:...`: especifica el nombre de la ecuación a ser agregada al contexto, guardando el resultado de hacer casos
 * `induction... as...`: hace inducción sobre valores de tipos definidos inductivamente
-* `inversion`: razona sobre el hecho de que los constructores de un tipo inductivo son _inyectivos_ y disjuntos entre sí
+* `inversion`: razona sobre el hecho de que los constructores de un tipo inductivo son inyectivos y disjuntos entre sí
 * `assert (H: e) (or assert (e) as H)`: introduce un _lema local_ `e` y lo llama `H`
 * `generalize dependent x`: mueve una variable `x` (y todo lo que dependa de ella) del contexto a una hipótesis explícita en el _goal_
