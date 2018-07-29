@@ -373,3 +373,28 @@ Proof.
   reflexivity.
 Qed.
 ```
+
+### Tácticas en hipótesis
+Además de utilizar las tácticas para modificar el _goal_, podrían utilizarlas para modificar las hipótesis.
+
+Un ejemplo podría ser simplificar (`simpl`) una hipótesis, tal como se ve en el ejemplo siguiente:
+```coq
+Theorem S_inj : ∀ (n m : nat) (b : bool),
+     beq_nat (S n) (S m) = b →
+     beq_nat n m = b.
+Proof.
+  intros n m b H. simpl in H. apply H. Qed.
+```
+
+También podríamos utilizar `apply` en una hipótesis, pero obtendríamos algo distinto a cuando utilizamos esta táctica en el _goal_. Cuando lo hacemos en el _goal_ el razonamiento es _backward_, es decir _si sabemos que `L1 → L2` y estamos intentando probar `L2`, basta con probar `L1`_. Por su parte, cuando utilizamos la táctica `apply` en una hipótesis el razonamiento es _forward_, es decir si _partimos de `L1 → L2` y una hipótesis que matchea `L1`, se produce una hipótesis que matchea `L2`_. A continuación se muestra un ejemplo.
+
+```coq
+Theorem silly3' : ∀ (n : nat),
+  (beq_nat n 5 = true → beq_nat (S (S n)) 7 = true) →
+  true = beq_nat n 5 →
+  true = beq_nat (S (S n)) 7.
+Proof.
+  intros n eq H.
+  symmetry in H. apply eq in H. symmetry in H.
+  apply H. Qed.
+```
